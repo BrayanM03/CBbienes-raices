@@ -1,0 +1,10 @@
+.hover-list:hover{
+    background-color: rgb(243, 234, 234);
+    cursor: pointer;
+}
+
+.item_seleccionado{
+    box-shadow:0px 0px 0px 2px tomato inset;
+    ;
+}
+

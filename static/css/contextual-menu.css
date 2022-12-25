@@ -1,0 +1,67 @@
+:root {
+    --animate-duration: 390ms;
+   /*  --animate-delay: 0.9s; */
+  }
+
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap');
+
+.wrapper-cm{
+    width:180px;
+    height: auto;
+    background-color: rgb(255, 255, 255);
+    border-radius: 10px;
+    padding: 0;
+    border: 1px solid gray;
+    box-shadow: 0 12px 35px rgba(0, 0, 0, 0.1);
+    visibility: hidden;
+    position: absolute;
+}
+
+.wrapper-cm .menu{
+    font-family: 'Poppins' sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    width: 97%;
+    display: flex;
+    flex-direction: column;
+    padding: 0;
+    justify-content: center;
+}
+.content{
+    padding: 10px 5px;
+    display: flex;
+    justify-content: center;
+
+}
+.content .item{
+    list-style: none;
+    font-size: 1px;
+    height: 30px;
+    width: 100%;
+    display: flex;
+    padding: 0 5px 0 10px;
+    align-items: center;
+    border-radius: 5px;
+    margin-bottom: 2px;
+}
+
+.content .item:hover{
+
+    background: #f2f2f2;
+    cursor: pointer;
+}
+
+.content .item span{
+    font-size: 13px;
+    margin-left: 8px;
+}
+
+.content .setting{
+    display: flex;
+    margin-top: 5px;
+    border-top: 1px solid #ccc;
+}
+
+#tabla-datos-abonos{
+    font-size: 12px !important;
+}

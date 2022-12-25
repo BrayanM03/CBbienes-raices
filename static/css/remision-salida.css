@@ -1,0 +1,31 @@
+.remision-salida-formulario{
+    width: 70%;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    height: auto;
+    padding: 1rem;
+    background-color: #8BC6EC;
+background-image: linear-gradient(135deg, #8BC6EC 0%, #9599E2 100%);
+
+}
+
+.main-content{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.dataTables_wrapper no-footer{
+    margin-top: 2rem !important;
+}
+.table{
+    background-color: rgb(255, 255, 255);
+    padding: .7rem;
+    width: 97%;
+    border-radius: 7px;
+}
+
+#select2-producto-container{
+    color: #99A3BA !important;
+}

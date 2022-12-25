@@ -1,0 +1,62 @@
+.swal-wide{
+    width: 95% !important;
+}
+.swal2-title{
+    font-size: 1.300em !important;
+}
+.swal-wide .swal2-icon {
+    width: 50px!important;
+    height: 50px !important;
+}
+
+#list-header-t .row div{
+    font-size: 10px;
+}
+
+.swal-wide .swal2-icon-content{
+    position: absolute !important;
+    text-align: center !important;  
+    font-size: 43px !important;
+    width: 49px !important;
+    height: 43px !important;
+    margin: 0 !important;
+    padding: 0 !important;
+    top: 4px;
+    left: 21px !important;
+   
+}
+
+.tarjeta-cliente{
+    border: 1px solid rgb(200, 198, 198);
+    border-radius: 7px;
+    font-size: 13px;
+    padding: 1.5rem;
+}
+
+.tarjeta-cliente div{
+    text-align: start;
+}
+
+#list-tab .active{
+    background-color: rgb(200, 231, 232) !important;
+    color: rgb(13, 128, 128) !important;
+    border: 1px solid rgb(13, 128, 128) !important;
+}
+
+#list-tab a{
+    cursor: pointer;
+}
+#list-terrenos{
+
+    font-size: 13px;
+}
+#list-terrenos .active{
+    background-color: rgb(244, 163, 106) !important;
+    color: rgb(251, 251, 251) !important;
+    border: 1px solid rgb(148, 57, 14) !important;
+}
+
+#list-header-t{
+    color: aliceblue;
+    background-color: rgb(166, 166, 170);
+}

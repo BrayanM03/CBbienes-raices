@@ -1,0 +1,93 @@
+@page { margin: 0; 
+height: auto;}
+@media print {
+    @page { margin: 3px; }
+    
+  }
+html{
+    height: auto;
+    margin: 0;
+}
+.container{
+    padding: .3rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    height: auto;
+}
+
+.header{
+    width: 268px;
+    padding: .5rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    border: 1px solid gray;
+    border-radius: 8px;
+    margin-bottom: 1rem;
+}
+
+.img-logo{
+    width: 90px;
+}
+.title{
+    font-size: 20px;
+}
+
+.subtitle{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+}
+
+.subtitle-2{
+    text-align: center;
+    color: rgb(75, 75, 75);
+}
+
+.datos-ticket{
+    width: 268px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+.body{
+    margin: 1rem 0;
+    width: 268px;
+}
+
+.table{
+    width: 98%;
+    margin-bottom: 1rem;
+
+}
+
+.table thead {
+    margin-bottom: .6rem;
+}
+
+.table thead th{
+    text-align: center;
+    vertical-align: baseline;
+    width: auto;
+}
+
+.cell-spacing{
+ width: 65%;   
+}
+
+.totales thead th{
+    font-size: 20px;
+}
+
+.footer{
+
+    margin: 1rem;
+    width: 268px;
+}
+
+.footer span{
+    text-align: center;
+    margin-bottom: 2rem;
+}

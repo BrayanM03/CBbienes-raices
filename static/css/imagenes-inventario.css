@@ -1,0 +1,110 @@
+.canvas{
+    position: relative;
+    border: 1px solid #CDD9ED;
+    border-radius: 8px;
+    width: 30%;
+    height: 180px;
+    margin: 1rem 0;
+    cursor: pointer;
+}
+.container-lottier-player{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    height: 100%;
+
+}
+#canvas1, #canvas2, #canvas3{
+    width: 100%;
+    height: 90%;
+}
+
+#canvas1:hover, #canvas2:hover, #canvas3:hover{
+    opacity: .5;
+
+}
+
+
+.canvas:hover{
+    border: 1px solid tomato;
+    box-shadow: tomato 2px 1px 1px transparent;
+}
+.btn-delete-img{
+    position: absolute;
+    z-index: 99;
+    top: 5px;
+    left: 85%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    border-radius: 10px;
+    border: 1px solid #dec76b;
+    background-color: #E9BD15;
+    width: 28px;
+}
+.btn-delete-img:hover{
+    border: 1px solid tomato;
+    background-color: rgb(246, 142, 124);
+}
+
+#area-canv{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+}
+
+.instrucciones{
+    font-size: 14px;
+    color: #bbc1ce;
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    text-align: center;
+    padding: .6rem;
+    margin-bottom: 1.5rem;
+    
+}
+
+@media screen and (max-width: 768px){
+    .canvas{
+        margin: .5rem .6rem;
+        width: 60%;
+    }
+
+    #area-canv{
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .option-card{
+        margin-bottom: 1rem;
+    }
+}
+
+#p1,#p2{
+    height:25px;
+    width:25px;
+    border-radius:50% 0 0 50%;
+    background-color:blue;  
+ }
+ 
+ #p2{
+    border-radius:0 50% 50% 0;
+ }
+    
+ button{
+    height:25px;
+    width:75px;
+    background-color:blue;
+    border:none;
+    color:white;
+ }
+ 
+ #container-pill{
+    display:flex;
+    align-items:center;
+ }
