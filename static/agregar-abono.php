@@ -101,12 +101,12 @@ if (empty($_SESSION["id"])) {
 
                                                         <div class="col-12 col-md-3">
                                                             <label for="abonos">Mensualidad</label>
-                                                            <input type="text" class="form-field" id="abonos">
+                                                            <input type="text" value="1/60" class="form-field" id="abonos">
                                                         </div>
                                                     </div>
                                                 </div>
 
-                                                
+
 
 
                                             </div>
@@ -117,8 +117,8 @@ if (empty($_SESSION["id"])) {
                         </div>
                     </div>
 
-                </div>
-            </main>
+                </main>
+                
 
             <footer class="footer">
                 <div class="container-fluid">
@@ -147,8 +147,9 @@ if (empty($_SESSION["id"])) {
                     </div>
                 </div>
             </footer>
+            </div>
         </div>
-    </div>
+    
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>
     <script src="js/app.js"></script>
