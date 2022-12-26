@@ -216,7 +216,7 @@ function verDetalleOrden(id){
              $("#select-abonos").change(()=>{
                 let id_detalle = $("#select-abonos").val();
 
-                $("#btn-add-abono").attr("href", "agregar-abono.php?orden_id=" + id_detalle)
+                $("#btn-add-abono").attr("href", "agregar-abono.php?terreno_detalle_id=" + id_detalle)
                 $("#btn-add-abono").attr("target", "_blank" )
            
                 $("#body-abonos").empty()

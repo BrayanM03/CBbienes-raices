@@ -27,6 +27,9 @@ if (empty($_SESSION["id"])) {
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/jquery.dataTables.min.css" />
     <link rel="stylesheet" href="https://cdn.datatables.net/responsive/2.3.0/css/responsive.dataTables.min.css" />
+    <link rel="stylesheet" href="./css/form-field.css">
+    <link rel="stylesheet" href="./css/lista-abonos.css">
+
 
 </head>
 
@@ -56,13 +59,56 @@ if (empty($_SESSION["id"])) {
                         <div class="col-12">
                             <div class="card">
                                 <div class="card-header">
-                                    <h5 class="card-title mb-0">Aires en el catalogo</h5>
+                                    <h5 class="card-title mb-0">Detalle de compra venta</h5>
                                 </div>
                                 <div class="card-body">
                                     <div class="row">
                                         <div class="col-12 col-md-12">
                                             <div class="detalle-terreno">
+                                                <div class="row">
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="proyecto">Proyecto</label>
+                                                        <input type="text" class="form-field" id="proyecto">
+                                                    </div>
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="manzana">Manzana</label>
+                                                        <input type="text" class="form-field" id="manzana">
+                                                    </div>
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="lote">Lote</label>
+                                                        <input type="text" class="form-field" id="lote">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="abonos">abonos</label>
+                                                        <input type="text" class="form-field" id="abonos">
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12 col-md-3">
+                                                            <label for="proyecto">Precio total</label>
+                                                            <input type="text" class="form-field" id="precio-total">
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <label for="manzana">Total abonado</label>
+                                                            <input type="text" class="form-field" id="manzana">
+                                                        </div>
+                                                        <div class="col-12 col-md-3">
+                                                            <label for="lote">Restante</label>
+                                                            <input type="text" class="form-field" id="lote">
+                                                        </div>
+
+                                                        <div class="col-12 col-md-3">
+                                                            <label for="abonos">Mensualidad</label>
+                                                            <input type="text" class="form-field" id="abonos">
+                                                        </div>
+                                                    </div>
+                                                </div>
+
                                                 
+
+
                                             </div>
                                         </div>
                                     </div>
