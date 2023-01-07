@@ -4,6 +4,87 @@ session_start();
 if (empty($_SESSION["id"])) {
 	header("Location:login.php");
 }
+
+if(!isset($_SESSION)) 
+	{ 
+		session_start(); 
+	} 
+	include './../servidor/database/conexion.php';
+	date_default_timezone_set('America/Matamoros');
+
+	$year = date('Y');
+	$mes = date('m');
+	$fecha = date('Y-m-d');
+	//Terrenos totales
+	$select_count = "SELECT COUNT(*) FROM terrenos";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_terrenos = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Terrenos vendidos
+	$select_count = "SELECT COUNT(*) FROM terrenos WHERE estatus = 'Pagando' OR estatus = 'Pagado'";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_terrenos_vendidos = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Terrenos pagados
+	$select_count = "SELECT COUNT(*) FROM terrenos WHERE estatus = 'Pagado'";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_terrenos_pagados = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Terrenos pendientes
+	$select_count = "SELECT COUNT(*) FROM terrenos WHERE estatus = 'Pagando'";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_terrenos_pendientes = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Total de terrenos disponibles
+	$select_count = "SELECT COUNT(*) FROM terrenos WHERE estatus = 'Disponible'";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_terrenos_disponibles = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Total de clientes
+	$select_count = "SELECT COUNT(*) FROM clientes";
+	$res = $con->prepare($select_count);
+	$res->execute();
+	$total_clientes = $res->fetchColumn();
+	$res->closeCursor();
+
+	//Abonos del mes
+	$select_count = "SELECT COUNT(*) FROM abonos WHERE MONTH(fecha) = ?  AND YEAR(fecha) = ?";
+	$res = $con->prepare($select_count);
+	$res->execute([$mes, $year]);
+	$total_abonos_mes = $res->fetchColumn();
+	$res->closeCursor();
+
+	if($total_abonos_mes > 0){
+		$select_count = "SELECT SUM(total) FROM abonos WHERE MONTH(fecha) = ?  AND YEAR(fecha) = ?";
+		$res = $con->prepare($select_count);
+		$res->execute([$mes, $year]);
+		$abonado_este_mes= $res->fetchColumn();
+		$res->closeCursor();
+		$abonado_este_mes = number_format($abonado_este_mes, 2);
+	}else{
+		$abonado_este_mes = 0.00;
+		$abonado_este_mes = number_format($abonado_este_mes, 2);
+	}
+	
+
+	//Clientes con atrasos
+
+	$select_count = "SELECT COUNT(*) FROM detalle_orden WHERE restante != 0 AND fecha_vencimiento <= ?";
+    $res = $con->prepare($select_count);
+    $res->execute([$fecha]);
+    $total_atrasos = $res->fetchColumn();
+    $res->closeCursor();
+	
 ?>
 <!DOCTYPE html> 
 <html lang="es">
@@ -41,7 +122,7 @@ if (empty($_SESSION["id"])) {
 			<main class="content">
 				<div class="container-fluid p-0">
 
-					<h1 class="h3 mb-3"><strong>Analytics</strong> Dashboard</h1>
+					<h1 class="h3 mb-3"><strong>Analiticas</strong> panel</h1>
 
 					<div class="row">
 						<div class="col-xl-6 col-xxl-5 d-flex">
@@ -52,19 +133,25 @@ if (empty($_SESSION["id"])) {
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Sales</h5>
+														<h5 class="card-title">Terrenos vendidos</h5>
 													</div>
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="truck"></i>
+															<i class="align-middle" data-feather="home"></i>
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">2.382</h1>
+												<h1 class="mt-1 mb-3"><?php echo $total_terrenos_vendidos . '/' . $total_terrenos?></h1>
 												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -3.65% </span>
-													<span class="text-muted">Since last week</span>
+													<span class="text-warning"> <i class="mdi mdi-arrow-bottom-right"></i><?php echo $total_terrenos_pendientes?> </span>
+													<span class="text-muted">Terrenos pagando</span><br>
+
+													<span class="text-primary"> <i class="mdi mdi-arrow-bottom-right"></i><?php echo $total_terrenos_disponibles?> </span>
+													<span class="text-muted">Terrenos disponibles</span><br>
+
+													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i><?php echo $total_terrenos_pagados?>  </span>
+													<span class="text-muted">Terrenos pagados</span><br>
 												</div>
 											</div>
 										</div>
@@ -72,7 +159,7 @@ if (empty($_SESSION["id"])) {
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Visitors</h5>
+														<h5 class="card-title">Clientes</h5>
 													</div>
 
 													<div class="col-auto">
@@ -81,7 +168,7 @@ if (empty($_SESSION["id"])) {
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">14.212</h1>
+												<h1 class="mt-1 mb-3"><?php echo $total_clientes ?></h1>
 												<div class="mb-0">
 													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
 													<span class="text-muted">Since last week</span>
@@ -94,7 +181,7 @@ if (empty($_SESSION["id"])) {
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Earnings</h5>
+														<h5 class="card-title">Abonado este mes</h5>
 													</div>
 
 													<div class="col-auto">
@@ -103,10 +190,10 @@ if (empty($_SESSION["id"])) {
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">$21.300</h1>
+												<h1 class="mt-1 mb-3"><?php echo "$".$abonado_este_mes ?></h1>
 												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 6.65% </span>
-													<span class="text-muted">Since last week</span>
+													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i><?php echo $total_abonos_mes ?> </span>
+													<span class="text-muted">Abonos realizados</span>
 												</div>
 											</div>
 										</div>
@@ -114,19 +201,19 @@ if (empty($_SESSION["id"])) {
 											<div class="card-body">
 												<div class="row">
 													<div class="col mt-0">
-														<h5 class="card-title">Orders</h5>
+														<h5 class="card-title">Mensualidad vencidas</h5>
 													</div>
 
 													<div class="col-auto">
 														<div class="stat text-primary">
-															<i class="align-middle" data-feather="shopping-cart"></i>
+															<i class="align-middle" data-feather="watch"></i>
 														</div>
 													</div>
 												</div>
-												<h1 class="mt-1 mb-3">64</h1>
+												<h1 class="mt-1 mb-3"><?php echo $total_atrasos ?></h1>
 												<div class="mb-0">
-													<span class="text-danger"> <i class="mdi mdi-arrow-bottom-right"></i> -2.25% </span>
-													<span class="text-muted">Since last week</span>
+													<a class="text-success" href="../servidor/reportes/excel-vencidos.php"> <i class="mdi mdi-arrow-bottom-right"></i>Descargar reporte </a>
+													<!-- <span class="text-muted">Since last week</span> -->
 												</div>
 											</div>
 										</div>

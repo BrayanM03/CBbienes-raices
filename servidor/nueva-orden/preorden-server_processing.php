@@ -40,7 +40,7 @@ $columns = array(
 	array( 'db' => 'manzana', 'dt' => 3 ),
 	array( 'db' => 'lote', 'dt' => 4 ),
 	array( 'db' => 'precio', 'dt' => 5 ),
-	array( 'db' => 'enganche', 'dt' => 6 ),
+	array( 'db' => 'contrato', 'dt' => 6 ),
 	array( 'db' => 'plazo', 'dt' => 7 ),
 	array( 'db' => 'usuario_id',  'dt' => 8 )
 /* 	array(

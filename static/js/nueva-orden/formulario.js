@@ -150,7 +150,10 @@ function agregarATabla(){
   let este = $("#este").val()
   let oeste = $("#oeste").val()
 
-  let enganche = $("#enganche").val()
+  let contrato = $("#contrato").val()
+  let enganche_1 = $("#enganche_1").val()
+  let enganche_2 = $("#enganche_2").val()
+  let enganche_3 = $("#enganche_3").val()
   let plazo = $("#plazo").val()
   let mensualidad = $("#mensualidad").val()
 
@@ -176,6 +179,7 @@ function agregarATabla(){
     })
   } else{
 
+    console.log(contrato);
     $.ajax({
       type: "POST",
       url: "../servidor/nueva-orden/registrar-preorden.php",
@@ -188,9 +192,12 @@ function agregarATabla(){
         sur,
         este,
         oeste,
-        enganche,
         plazo,
-        mensualidad
+        mensualidad,
+        contrato,
+        enganche_1,
+        enganche_2,
+        enganche_3
       },
       dataType: "JSON",
       success: function (response) {

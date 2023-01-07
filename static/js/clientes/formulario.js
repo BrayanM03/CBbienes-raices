@@ -7,7 +7,7 @@ $('#myTab a').on('click', function(e) {
     clases = $(this).children().children().attr('class');
     clase = reemplazarCadena("fas fa", "fa", clases);
 
-    if(clase == "fa-map-marker-alt" || clase == "fa-envelope" || clase == "fa-credit-card" || clase=="fa-money-bill-wave"){
+    if(clase == "fa-map-marker-alt" || clase == "fa-envelope" || clase == "fa-credit-card" || clase=="fa-money-bill-wave" || clase =="fa-folder"){
 
         switch (clase){
             case "fa-map-marker-alt":
@@ -129,6 +129,35 @@ $('#myTab a').on('click', function(e) {
                         setTimeout( agregarCategoria, 750);
                 }else{
                     agregarCategoria();
+                    }
+            break;
+
+            case 'fa-folder':
+                flag7 = $("#direcciones-agregadas").hasClass("d-none");
+                flag8 = $("#correos-agregados").hasClass("d-none");
+                flag11= $("#cuentas-agregadas").hasClass("d-none");
+
+                if(flag7 == false){
+                    animateCSS("#direcciones-agregadas", "bounceOutDown").then(() => {
+                        $("#direcciones-agregadas").addClass("d-none");
+                         
+                        });
+
+                        /* setTimeout(agregarCategoria, 680); */
+                    }else if(flag8 == false){
+                    animateCSS("#correos-agregados", "bounceOutDown").then(() => {
+                        $("#correos-agregados").addClass("d-none");
+                       
+                        });
+                        /* setTimeout( agregarCategoria, 750); */
+                }else if(flag11 == false){
+                    animateCSS("#cuentas-agregadas", "bounceOutDown").then(() => {
+                        $("#cuentas-agregadas").addClass("d-none");
+                       
+                        });
+                       /*  setTimeout( agregarCategoria, 750); */
+                }else{
+                    /* agregarCategoria(); */
                     }
             break;
             

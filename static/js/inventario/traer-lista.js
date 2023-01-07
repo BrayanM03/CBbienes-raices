@@ -31,11 +31,13 @@ $(document).ready(function () {
             { data:null, title:'Estatus', render: (row, data)=>{
               /* console.log(row);
               console.log(data); */
-              let estatus = row[9];
+              let estatus = row[9]; 
               if(estatus == "Disponible"){
                 var clase_pill = "estatus_disponible";
-              }else{
-                var clase_pill = "estatus_abonando";
+              }else if(estatus == "Pagando"){
+                var clase_pill = "estatus_pagando";
+              }else if(estatus == "Pagado"){
+                var clase_pill = "estatus_pagado";
               }
               return `<div class='container-pill ${clase_pill}'>
                          ${estatus}

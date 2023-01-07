@@ -16,7 +16,9 @@ $(document).ready(function () {
         ],
         columns:  [ 
             { data:0, title:'#' },
-            { data:1, title:'Codigo' },
+            { data:null, title:'Codigo', render(row){
+              return "T"+row[1]
+            }},
             { data:2, title:'Proyecto'},
             { data:3, title:'Manzana'},
             { data:4, title:'Lote'},
@@ -25,7 +27,7 @@ $(document).ready(function () {
               let precio_unit = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(precio_unit_sf)
               return precio_unit;
             } },
-            { data:null, title:'Enganche', render:(row)=>{
+            { data:null, title:'Contrato', render:(row)=>{
               let precio_unit_sf = row[6]
               let precio_unit = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(precio_unit_sf)
               return precio_unit;

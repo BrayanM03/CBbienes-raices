@@ -54,7 +54,19 @@
  }
  
  .estatus_disponible{
+    background-color:rgba(148, 202, 246, 0.5);
+    border: 1px solid rgb(19, 117, 147);
+    color:rgb(19, 117, 147);
+ }
+
+ .estatus_pagado{
     background-color:rgba(70, 249, 112, 0.5);
     border: 1px solid rgb(6, 161, 88);
     color:rgb(6, 161, 88);
+ }
+
+ .estatus_pagando{
+    background-color:rgba(227, 241, 33, 0.5);
+    border: 1px solid rgb(163, 158, 3);
+    color:rgb(163, 158, 3);
  }

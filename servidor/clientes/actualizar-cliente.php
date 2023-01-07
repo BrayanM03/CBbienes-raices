@@ -11,7 +11,7 @@
     }
 
     if (!isset($_SESSION['user'])) {
-    header("Location:../../static/login.php");
+    header("Location:../../static/login.php"); 
     }
 
    $arrResultado=array();
@@ -322,12 +322,72 @@
      eliminarDatos($id_cliente, $con, "detalle_direccion");
         eliminarDatos($id_cliente, $con, "detalle_correo");
         eliminarDatos($id_cliente, $con, "detalle_cuenta_bancaria");
+
+        //Insertar documentos
+       
+        if(count($_FILES) > 0){
+
+    
+
+            // Establecer la ruta de destino de los archivos
+            $targetDir = '../../static/docs/C'.$id_cliente .'/';
+
+            if (!is_dir($targetDir)) {
+              mkdir($targetDir, 0777, true);
+          }
+
+           // Mover el archivo INE a la carpeta de destino
+           if(isset($_FILES['file_ine'])){
+            $fileIne = $_FILES['file_ine'];
+            $extIne = pathinfo($fileIne['name'], PATHINFO_EXTENSION);
+            $fileIne['name'] = "INE." . $extIne;
+
+            if (move_uploaded_file($fileIne['tmp_name'], $targetDir . $fileIne['name'])) {
+                // Mostrar un mensaje de éxito
+                /* echo "El archivo INE se ha subido correctamente<br>"; */
+              } else {
+                // Mostrar un mensaje de error
+                /* echo "Se ha producido un error al subir el archivo INE<br>"; */
+              }
+           }
+          
+           if(isset($_FILES['file_domicilio'])){
+            $fileDomicilio = $_FILES['file_domicilio'];
+            $extDomicilio = pathinfo($fileDomicilio['name'], PATHINFO_EXTENSION);
+            $fileDomicilio['name'] = "COMPROBANTE DE DOMICILIO." . $extDomicilio;
+            // Mover el archivo de comprobante de domicilio a la carpeta de destino
+            if (move_uploaded_file($fileDomicilio['tmp_name'], $targetDir . $fileDomicilio['name'])) {
+                // Mostrar un mensaje de éxito
+            /*  echo "El archivo de comprobante de domicilio se ha subido correctamente<br>"; */
+            } else {
+                // Mostrar un mensaje de error
+                /* echo "Se ha producido un error al subir el archivo de comprobante de domicilio<br>"; */
+            }
+           }
+          
+           if(isset($_FILES['file_rfc'])){
+            $fileRfc = $_FILES['file_rfc'];
+            $extRfc = pathinfo($fileRfc['name'], PATHINFO_EXTENSION);
+            $fileRfc['name'] = "RFC." . $extRfc;
+                // Mover el archivo de RFC a la carpeta de destino
+                if (move_uploaded_file($fileRfc['tmp_name'], $targetDir . $fileRfc['name'])) {
+                    // Mostrar un mensaje de éxito
+                /*  echo "El archivo de RFC se ha subido correctamente<br>"; */
+                } else {
+                    // Mostrar un mensaje de error
+                /*  echo "Se ha producido un error al subir el archivo de RFC<br>"; */
+                }
+                };
+           }
+          
     
 
     print_r(1);
     //echo json_encode($_POST, JSON_UNESCAPED_UNICODE);
 
 
+   }else{
+    echo "No hay clientes con ese id";
    }
 
 

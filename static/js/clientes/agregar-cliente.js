@@ -33,6 +33,10 @@ function registrarClienteNuevo(){
     lugar_nacimiento = $("#lugar-nac").val();
     ocupacion = $("#ocupacion").val();
 
+    const file_ine = document.getElementById('ine').files[0];
+    const file_domicilio = document.getElementById('comprobante_domicilio').files[0];
+    const file_rfc = document.getElementById('comprobante_rfc').files[0];
+
     contacto == "" || contacto == " " ? contacto = "Sin definir": contacto =contacto;
     telefono == "" || telefono == " " ? telefono = "Sin definir": telefono =telefono;
 
@@ -157,24 +161,32 @@ function registrarClienteNuevo(){
       }); 
     
 
-   
+  
+      const formData = new FormData();
+      formData.append('file_ine', file_ine);
+     
+      formData.append('file_domicilio', file_domicilio);
+      formData.append('file_rfc', file_rfc);
+      formData.append('razon_social', razon_social);
+      formData.append('rfc', rfc);
+      formData.append('telefono', telefono);
+      formData.append('contacto', contacto);
+      formData.append('estado_civil', estado_civil);
+      formData.append('lugar_nacimiento', lugar_nacimiento);
+      formData.append('ocupacion', ocupacion);
+      formData.append('fecha_nacimiento', fecha_nacimiento);
+      formData.append('tipo_cliente', tipo_cliente);
+      formData.append('direcciones', JSON.stringify(direcciones));
+      formData.append('cuentas', JSON.stringify(cuentas));
+      formData.append('correos', JSON.stringify(correos));
+      
      
       $.ajax({
           type: "POST",
           url: "../servidor/clientes/agregar-nuevo-cliente.php",
-          data: {"razon_social": razon_social,
-                 "rfc": rfc,
-                 "telefono": telefono,
-                 "contacto": contacto,
-                 "estado_civil": estado_civil,
-                 "lugar_nacimiento": lugar_nacimiento,
-                 "ocupacion": ocupacion,
-                 "fecha_nacimiento": fecha_nacimiento,
-                 "tipo_cliente": tipo_cliente,
-                 "direcciones": JSON.stringify(direcciones),
-                 "cuentas": JSON.stringify(cuentas),
-                 "correos": JSON.stringify(correos),
-                 "categorias": JSON.stringify(categorias_lis)},
+          data: formData,
+          processData: false,
+          contentType: false,   
           dataType: "JSON",
           success: function (response) {
               

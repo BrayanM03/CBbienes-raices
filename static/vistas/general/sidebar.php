@@ -44,7 +44,7 @@
                                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Ordenes</span>
                                 </a>
                             </li>
-                            <li class="sidebar-item">
+                           <!--  <li class="sidebar-item">
                                 <a class="sidebar-link" href="historial-cotizaciones.php">
                                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Cotizaciones</span>
                                 </a>
@@ -59,7 +59,7 @@
                                 <a class="sidebar-link" href="historial-entradas.php">
                                     <i class="align-middle" data-feather="book"></i> <span class="align-middle">Ingreso de material</span>
                                 </a>
-                            </li>
+                            </li> -->
 
                             <!-- <li class="sidebar-item">
                                 <a class="sidebar-link" href="historial-salidas.php">

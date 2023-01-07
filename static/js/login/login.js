@@ -1,5 +1,7 @@
 function iniciarSesion(){
 
+    $("#btn-login").empty().html("<div class='preloader'></div>")
+
     user = document.getElementById("user").value;
     pass = document.getElementById("pass").value;
 

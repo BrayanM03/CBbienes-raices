@@ -22,9 +22,6 @@
 
 // Table's primary key
 $primaryKey = 'id';
-$sucursal_id = $_GET['sucursal_id'];
-$categoria = $_GET['categoria'];
-$subcategoria = $_GET['subcategoria'];
 $table = "terrenos";
 
 

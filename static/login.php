@@ -19,6 +19,27 @@
 	<link href="css/app.css" rel="stylesheet">
 	<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&display=swap" rel="stylesheet">
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+	<style>
+		.preloader {
+  width: 16px;
+  height: 16px;
+  border: 2.5px solid #eee;
+  border-top: 2.5px solid tomato;
+  border-radius: 50%;
+  animation-name: girar;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+}
+@keyframes girar {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+	</style>
+
 </head>
 
 <body style="background-image: url(img/background.jpg); overflow-y: hidden;">
@@ -62,7 +83,7 @@
 											</label>
 										</div>
 										<div class="text-center mt-3">
-											<a href="#validando" class="btn btn-lg btn-primary" onclick="iniciarSesion()">Entrar</a>
+											<a id="btn-login" href="#validando" class="btn btn-lg btn-primary" style="width:130px; display:flex; justify-content:center" onclick="iniciarSesion()">Entrar</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->
 										</div>
 									</form>

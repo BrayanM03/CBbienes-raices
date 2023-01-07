@@ -1,20 +1,31 @@
 <?php
 session_start();
-if ($_POST) {
+
     include "../database/conexion.php";
     date_default_timezone_set('America/Matamoros');
 
 
     $cliente_id = $_POST['cliente'];
     $fecha = $_POST['fecha'];
-    $hora = date("H:i a");
+
+    //Seteando nueva fecha vencimiento
+    $date = new DateTime($fecha);
+    $date->modify("+1 month");
+    $date->setDate($date->format("Y"), $date->format("m"), 5);
+    $fecha_vecimiento = $date->format("Y-m-d");
+
+    //Nuevo estatus
+    $estatus_detalle = "Vigente";
+
+
+    $hora = date('h:i a');
     $usuario_id = $_SESSION["id"];
     $usuario_nombre = $_SESSION["nombre"] . " ". $_SESSION["apellido"];
     $comentario = $_POST['comentario'];
     $direccion_cliente = $_POST['direccion_cliente'];
     $correo_cliente = $_POST['correo_cliente'];
     $telefono_cliente = $_POST['telefono_cliente'];
-    $estatus_nuevo = "Pendiente";
+    $estatus_nuevo = "Pagando";
 
     $datos_clientes =  obtenerDatosCliente($con, $cliente_id, $direccion_cliente, $correo_cliente);
     if($datos_clientes == false){
@@ -59,36 +70,39 @@ if ($_POST) {
     $total = $re->fetchColumn();
     $re->closeCursor();
 
-    if($total > 0){
-        $traer = "SELECT * FROM detalle_preorden WHERE usuario_id = ?";
-        $res = $con->prepare($traer);
-        $res->execute([$usuario_id]);
+if ($total > 0) {
+    $traer = "SELECT * FROM detalle_preorden WHERE usuario_id = ?";
+    $res = $con->prepare($traer);
+    $res->execute([$usuario_id]);
 
-        $suma_importe = 0;
-        while($row = $res->fetch()){
+    $suma_importe = 0;
+    while ($row = $res->fetch()) {
 
-            $id = $row['id'];
-            $codigo = $row['codigo'];
-            $id_proyecto = $row['id_proyecto'];
-            $proyecto = $row["proyecto"];
-            $manzana = $row['manzana'];
-            $lote = $row["lote"];
-            $precio = floatval($row['precio']);
-            $enganche = floatval($row['enganche']);
-            $plazo = $row["plazo"];
-            $mensualidad = $row["mensualidad"];
-            $norte = $row["norte"];
-            $sur = $row["sur"];
-            $este = $row["este"];
-            $oeste = $row["oeste"];
-            $usuario_id = $row['usuario_id'];
-            $abonos = 1;
+        $id = $row['id'];
+        $codigo = $row['codigo'];
+        $id_proyecto = $row['id_proyecto'];
+        $proyecto = $row["proyecto"];
+        $manzana = $row['manzana'];
+        $lote = $row["lote"];
+        $precio = floatval($row['precio']);
+        $enganche_1 = floatval($row['enganche_1']);
+        $enganche_2 = floatval($row["enganche_2"]);
+        $enganche_3 = floatval($row["enganche_3"]); 
+        $contrato = floatval($row['contrato']);
+        $plazo = $row["plazo"];
+        $mensualidad = $row["mensualidad"];
+        $norte = $row["norte"];
+        $sur = $row["sur"];
+        $este = $row["este"];
+        $oeste = $row["oeste"];
+        $usuario_id = $row['usuario_id'];
+        $abonos = 0;
 
-            $no_abono = 0;
-            $restante = $precio - $enganche;
-            $etiqueta = "Enganche 1";
-            
-            $insertar_detalle = "INSERT INTO detalle_orden (id, 
+        $no_abono = 0;
+        $total_abonado = $enganche_1 + $enganche_2 + $enganche_3;
+        $restante = $precio - $total_abonado;
+
+        $insertar_detalle = "INSERT INTO detalle_orden (id, 
                                                             codigo, 
                                                             id_proyecto,
                                                             proyecto,
@@ -105,26 +119,48 @@ if ($_POST) {
                                                             usuario_id,
                                                             orden_id,
                                                             pagado,
-                                                            restante)
-                                VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
-            $respu = $con->prepare($insertar_detalle);
-            $respu->execute([$codigo, $id_proyecto, $proyecto, $manzana, $lote, $precio, 
-                             $abonos, $plazo, $mensualidad, $norte, $sur, $este, $oeste, $usuario_id, $last_id,
-                            $enganche, $restante]); 
-            $respu->closeCursor();
-            $last_id_detalle_orden = $con->lastInsertId();
-            $suma_importe += floatval($row["importe"]);
+                                                            restante,
+                                                            contrato,
+                                                            fecha_vencimiento,
+                                                            estatus)
+                                VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        $respu = $con->prepare($insertar_detalle);
+        $respu->execute([$codigo, $id_proyecto, $proyecto, $manzana, $lote, $precio,
+                         $abonos, $plazo, $mensualidad, $norte, $sur, $este, $oeste, $usuario_id, $last_id,
+                        $total_abonado, $restante, $contrato, $fecha_vecimiento, $estatus_detalle]);
+        $respu->closeCursor();
+        $last_id_detalle_orden = $con->lastInsertId();
+        $suma_importe += floatval($row["precio"]);
 
-            //Actualiando
-            $upt = "UPDATE terrenos SET estatus = ? WHERE proyecto = ? AND manzana = ? AND lote =?";
-            $upt = $con->prepare($upt);
-            $upt->execute([$estatus_nuevo, $id_proyecto, $manzana, $lote]);
+        //Actualiando
+        $upt = "UPDATE terrenos SET estatus = ? WHERE proyecto = ? AND manzana = ? AND lote =?";
+        $upt = $con->prepare($upt);
+        $upt->execute([$estatus_nuevo, $id_proyecto, $manzana, $lote]);
 
 
-            //Agrenado abonos
-        if($enganche > 0){
+        //Agrenado abonos
+        if ($total_abonado > 0) {
 
-            $insertar_abono = "INSERT INTO abonos (id, 
+            $restante_1 = $precio - $enganche_1;
+            $restante_2 = $restante_1 - $enganche_2;
+            $restante_3 = $restante_2 - $enganche_3;
+            $total_abonado_1 = $enganche_1;
+            $total_abonado_2 = $total_abonado_1 +  $enganche_2;
+            $total_abonado_3 = $total_abonado_2 +  $enganche_3;
+           
+
+            $arreglo_enganche = array(
+                array("fecha"=> $fecha, "total"=> $enganche_1, "restante"=> $restante_1, "total_abonado"=> $total_abonado_1, "etiqueta"=> "Enganche 1", "tipo" => "Enganche"),
+                array("fecha"=> $fecha, "total"=> $enganche_2, "restante"=> $restante_2, "total_abonado"=> $total_abonado_2, "etiqueta"=> "Enganche 2", "tipo" => "Enganche"),
+                array("fecha"=> $fecha, "total"=> $enganche_3, "restante"=> $restante_3, "total_abonado"=> $total_abonado_3, "etiqueta"=> "Enganche 3", "tipo" => "Enganche"),
+            );
+
+            foreach ($arreglo_enganche as $key => $value) {
+
+            
+                if ($value["total"] > 0) {
+
+                    $insertar_abono = "INSERT INTO abonos (id, 
                                                             no_abono, 
                                                             fecha,
                                                             total,
@@ -133,13 +169,17 @@ if ($_POST) {
                                                             etiqueta, 
                                                             orden_id, 
                                                             detalle_id, 
-                                                            usuario_id
+                                                            usuario_id,
+                                                            tipo,
+                                                            hora
                                                             )
-                                VALUES(null, ?,?,?,?,?,?,?,?,?)";
-            $respux = $con->prepare($insertar_abono);
-            $respux->execute([$no_abono, $fecha, $enganche, $restante, $enganche, $etiqueta, 
-                             $last_id, $last_id_detalle_orden, $usuario_id]); 
-            $respux->closeCursor();
+                                VALUES(null, ?,?,?,?,?,?,?,?,?,?,?)";
+                    $respux = $con->prepare($insertar_abono);
+                    $respux->execute([$no_abono, $value["fecha"], $value["total"], $value["restante"], 
+                    $value["total_abonado"], $value["etiqueta"],$last_id, $last_id_detalle_orden, $usuario_id, $value["tipo"],$hora]);
+                    $respux->closeCursor();
+                }
+            }
         }
 
         }
@@ -147,30 +187,30 @@ if ($_POST) {
         $res->closeCursor();
 
 
-       /*  $updt = "UPDATE cotizaciones SET neto = ? WHERE id = ?";
-        $respon = $con->prepare($updt);
-        $respon->execute([$suma_importe, $last_id]);
-        $respon->closeCursor();
- */
+        $select_d = "SELECT * FROM detalle_orden WHERE orden_id = ?";
+        $respon = $con->prepare($select_d);
+        $respon->execute([$last_id]);
+        while ( $rowx = $respon->fetch()){
+            $array_detalle[] = $rowx;
+        }
 
-        
 
+        $response = array("estatus" => true, "post"=> $_POST, "mensaje" => "Orden realizado", "datos_cliente"=> $datos_clientes, "id_orden" => $last_id, "array_detalle"=>$array_detalle);
 
-        $response = array("estatus" => true, "post"=> $_POST, "mensaje" => "Orden realizado", "datos_cliente"=> $datos_clientes, "id_orden" => $last_id,$suma_importe, $last_id);
-
-        $truncate = "DELETE FROM detalle_cotizacion_tmp WHERE usuario_id = ?";
+        $truncate = "DELETE FROM detalle_preorden WHERE usuario_id = ?";
         $rrsp = $con->prepare($truncate);
         $rrsp->execute([$usuario_id]);
         $rrsp->closeCursor();
 
 
     }else{
+        $array_detalle = array();
         $response = array("estatus" => false, "post"=> $_POST, "mensaje" => "Orden no realizada, no hay datos en la tabla preorden", "datos_cliente"=> $datos_clientes);
 
     }
         echo json_encode($response, JSON_UNESCAPED_UNICODE);
 
-}
+
 
 
 

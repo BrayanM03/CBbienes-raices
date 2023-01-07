@@ -9,11 +9,14 @@ if ($_POST) {
     $manzana = intval($_POST["manzana"]);
     $lote = intval($_POST["lote"]);
     $precio = floatval($_POST["precio"]);
+    $contrato = floatval($_POST["contrato"]);
     $norte = $_POST["norte"];
     $sur = $_POST["sur"];
     $este = $_POST["este"];
     $oeste = $_POST["oeste"];
-    $enganche = floatval($_POST["enganche"]);
+    $enganche_1 = floatval($_POST["enganche_1"]);
+    $enganche_2 = floatval($_POST["enganche_2"]);
+    $enganche_3 = floatval($_POST["enganche_3"]);
     $plazo = intval($_POST["plazo"]);
     $mensualidad = floatval($_POST["mensualidad"]);
     $usuario_id = intval($_SESSION["id"]);
@@ -39,12 +42,16 @@ if ($_POST) {
             $nombre_proyecto = $resp->fetchColumn();
             $resp->closeCursor();
 
-            $consultar2 = "SELECT estatus FROM terrenos WHERE proyecto = ? 
+            $consultar2 = "SELECT codigo, estatus FROM terrenos WHERE proyecto = ? 
             AND manzana = ?
             AND lote = ?";
             $resp = $con->prepare($consultar2);
             $resp->execute([$proyecto,  $manzana, $lote]);
-            $terreno_disp = $resp->fetchColumn();
+            while ($fil = $resp->fetch()) {
+                $codigo_terreno = $fil["codigo"];
+                $terreno_disp = $fil["estatus"];
+            }
+           
             $resp->closeCursor();
 
             if($terreno_disp !== "Disponible"){
@@ -55,23 +62,27 @@ if ($_POST) {
             }else{
 
                 $sel = "INSERT INTO detalle_preorden(id, 
+                                                     codigo,
                                                      id_proyecto,
                                                      proyecto,
                                                      manzana, 
                                                      lote, 
                                                      precio,
-                                                     enganche, 
+                                                     contrato,
                                                      plazo,
+                                                     enganche_1,
+                                                     enganche_2,
+                                                     enganche_3,
                                                      mensualidad,
                                                      norte, sur, este, oeste,
-                                                     usuario_id) VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                                                     usuario_id) VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             $resps = $con->prepare($sel);
-            $resps->execute([$proyecto, $nombre_proyecto, $manzana, $lote, $precio, $enganche, 
-            $plazo, $mensualidad, $norte, $sur, $este, $oeste, $usuario_id]);
+            $resps->execute([$codigo_terreno, $proyecto, $nombre_proyecto, $manzana, $lote, $precio, $contrato, $plazo, $enganche_1, $enganche_2, $enganche_3,
+             $mensualidad, $norte, $sur, $este, $oeste, $usuario_id]);
             $resps->closeCursor();
     
-            $response = array("status"=>true, "post"=>$_POST, "message"=> "Terreno agregado correctamente", "id"=>$last_id);
+            $response = array("status"=>true, "post"=>$_POST, "message"=> "Terreno agregado correctamente");
     
 
             }

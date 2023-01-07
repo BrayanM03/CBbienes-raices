@@ -1,6 +1,6 @@
 <?php
 session_start();
-
+date_default_timezone_set('America/Matamoros');
 if (empty($_SESSION["id"])) {
     header("Location:login.php");
 } ?>
@@ -65,47 +65,129 @@ if (empty($_SESSION["id"])) {
                                     <div class="row">
                                         <div class="col-12 col-md-12">
                                             <div class="detalle-terreno">
-                                                <div class="row">
+
+                                            <div class="row">
+                                            <div class="col-12 col-md-12">
+                                                        <label for="cliente">Cliente</label>
+                                                        <input type="text" class="form-field" id="cliente" disabled>
+                                                    </div>
+                                            </div>
+                                                <div class="row mt-3">
                                                     <div class="col-12 col-md-3">
                                                         <label for="proyecto">Proyecto</label>
-                                                        <input type="text" class="form-field" id="proyecto">
+                                                        <input type="text" class="form-field" id="proyecto" disabled>
                                                     </div>
                                                     <div class="col-12 col-md-3">
                                                         <label for="manzana">Manzana</label>
-                                                        <input type="text" class="form-field" id="manzana">
+                                                        <input type="text" class="form-field" id="manzana" disabled>
                                                     </div>
                                                     <div class="col-12 col-md-3">
                                                         <label for="lote">Lote</label>
-                                                        <input type="text" class="form-field" id="lote">
+                                                        <input type="text" class="form-field" id="lote" disabled>
                                                     </div>
 
                                                     <div class="col-12 col-md-3">
                                                         <label for="abonos">abonos</label>
-                                                        <input type="text" class="form-field" id="abonos">
+                                                        <input type="text" class="form-field" id="abonos" disabled>
                                                     </div>
                                                 </div>
 
                                                 <div class="row">
                                                     <div class="col-12 col-md-3">
-                                                            <label for="proyecto">Precio total</label>
-                                                            <input type="text" class="form-field" id="precio-total">
+                                                            <label for="precio-total">Precio total</label>
+                                                            <input type="text" class="form-field" id="precio-total" disabled>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <label for="manzana">Total abonado</label>
-                                                            <input type="text" class="form-field" id="manzana">
+                                                            <label for="total-abonado">Total abonado</label>
+                                                            <input type="text" class="form-field" id="total-abonado" disabled>
                                                         </div>
                                                         <div class="col-12 col-md-3">
-                                                            <label for="lote">Restante</label>
-                                                            <input type="text" class="form-field" id="lote">
+                                                            <label for="restante">Restante</label>
+                                                            <input type="text" class="form-field" id="restante" disabled>
                                                         </div>
 
                                                         <div class="col-12 col-md-3">
-                                                            <label for="abonos">Mensualidad</label>
-                                                            <input type="text" value="1/60" class="form-field" id="abonos">
+                                                            <label for="mensualidad">Mensualidad</label>
+                                                            <input type="text" value="1/60" class="form-field" id="mensualidad" disabled>
+                                                        </div>
+                                                    </div>
+
+                                                    <div class="row mt-3">
+                                                        <div class="col-12">
+                                                            <span>Porcentaje pagado</span>
+                                                            <div id="barra"></div>
                                                         </div>
                                                     </div>
                                                 </div>
 
+                                                <div class="nuevo-abono">
+
+                                                <div class="row mt-4">
+                                                    <div class="col-12 col-md-12 text-center">
+                                                        <h3><b>Nuevo abono</b></h3>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row">
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="cant-abono">Cantidad a abonar</label>
+                                                        <input type="number" class="form-field" id="monto-abono" placeholder="0.00">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-3">
+                                                        <label for="etiqueta">Etiqueta</label>
+                                                        <input type="text" class="form-field" id="etiqueta-abono" placeholder="Etiqueta">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-2">
+                                                        <label for="tipo-abono">Tipo</label>
+                                                        <select id="tipo-abono"  class="form-field">
+                                                            <option value="Abono">Abono</option>
+                                                            <option value="Enganche">Enganche</option>
+                                                        </select>
+                                                    </div>
+
+
+                                                    <div class="col-12 col-md-2">
+                                                        <label for="cant-abono">Fecha</label>
+                                                        <input type="date" id="fecha-abono" value="<?php echo date("Y-m-d") ?>" class="form-field">
+                                                    </div>
+
+                                                    <div class="col-12 col-md-2">
+                                                        <div type="text" class="btn btn-success mt-3" onclick="realizarAbono(<?php echo $_GET['orden_id'] ?>, <?php echo $_GET['terreno_detalle_id'] ?>)">Abonar</div>
+                                                    </div>
+                                                </div>
+
+                                                <div class="row mt-5">
+                                                    <div class="col-12">
+                                                        <span>Abonos realizados</span>
+                                                    </div>
+
+                                                    <div class="col-12 mt-3">
+                                                        <div class="table-resposive">
+                                                        <table id="tabla-abonos" class="table table-bordered table-hover">
+                                                            <thead class="table-primary">
+                                                                <tr>
+                                                                    <th>Folio</th>
+                                                                    <th>No. abono</th>
+                                                                    <th>Fecha</th>
+                                                                    <th>Hora</th>
+                                                                    <th>Total abonado</th>
+                                                                    <th>Etiqueta</th>
+                                                                    <th>Tipo</th>
+                                                                    <th>Acción</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="tbody-abonos">
+
+                                                            </tbody>
+                                                        </table>
+                                                        </div>
+                                                       
+                                                    </div>
+                                                </div>
+
+                                                </div>
 
 
 
@@ -159,9 +241,12 @@ if (empty($_SESSION["id"])) {
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+    <script src="js/progressjs/progressbarmin.js"></script>
 
     <!-- Mis scripts -->
-    <script src="js/refacciones/traer-lista.js"></script>
+    <script src="js/abonos/reload.js"></script>
+    <script src="js/abonos/nuevo-abono.js"></script>
+    <script src="js/abonos/realizar-abono.js"></script>
     <!-- <script src="js/clientes/traer-lista.js"></script>
     <script src="js/clientes/eliminar-cliente.js"></script>
  -->

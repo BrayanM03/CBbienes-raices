@@ -32,6 +32,8 @@
            $direcciones = json_decode($_POST["direcciones"], true);
            $correos = json_decode($_POST["correos"], true);
            $cuentas = json_decode($_POST["cuentas"], true);
+
+           
        
 
            $insert_customer = "INSERT INTO clientes(id, 
@@ -146,6 +148,62 @@
                 $result3->execute();
                 $result3->closeCursor();
               }
+
+
+              //Insertar documentos
+              $targetDir = '../../static/docs/C'.$id_cliente .'/';
+
+              if (!is_dir($targetDir)) {
+                mkdir($targetDir, 0777, true);
+            }
+              if(count($_FILES) > 0){
+
+                $fileIne = $_FILES['file_ine'];
+                $extIne = pathinfo($fileIne['name'], PATHINFO_EXTENSION);
+                $fileIne['name'] = "INE." . $extIne;
+
+                $fileDomicilio = $_FILES['file_domicilio'];
+                $extDomicilio = pathinfo($fileDomicilio['name'], PATHINFO_EXTENSION);
+                $fileDomicilio['name'] = "COMPROBANTE DE DOMICILIO." . $extDomicilio;
+
+                $fileRfc = $_FILES['file_rfc'];
+                $extRfc = pathinfo($fileRfc['name'], PATHINFO_EXTENSION);
+                $fileRfc['name'] = "RFC." . $extRfc;
+
+                // Establecer la ruta de destino de los archivos
+                $targetDir = '../../static/docs/C'.$id_cliente .'/';
+
+                if (!is_dir($targetDir)) {
+                  mkdir($targetDir, 0777, true);
+              }
+
+               // Mover el archivo INE a la carpeta de destino
+              if (move_uploaded_file($fileIne['tmp_name'], $targetDir . $fileIne['name'])) {
+                // Mostrar un mensaje de éxito
+                /* echo "El archivo INE se ha subido correctamente<br>"; */
+              } else {
+                // Mostrar un mensaje de error
+                /* echo "Se ha producido un error al subir el archivo INE<br>"; */
+              }
+
+              // Mover el archivo de comprobante de domicilio a la carpeta de destino
+              if (move_uploaded_file($fileDomicilio['tmp_name'], $targetDir . $fileDomicilio['name'])) {
+                // Mostrar un mensaje de éxito
+               /*  echo "El archivo de comprobante de domicilio se ha subido correctamente<br>"; */
+              } else {
+                // Mostrar un mensaje de error
+                /* echo "Se ha producido un error al subir el archivo de comprobante de domicilio<br>"; */
+              }
+
+              // Mover el archivo de RFC a la carpeta de destino
+              if (move_uploaded_file($fileRfc['tmp_name'], $targetDir . $fileRfc['name'])) {
+                // Mostrar un mensaje de éxito
+               /*  echo "El archivo de RFC se ha subido correctamente<br>"; */
+              } else {
+                // Mostrar un mensaje de error
+               /*  echo "Se ha producido un error al subir el archivo de RFC<br>"; */
+              }
+              };
 
              print_r(1);
 

@@ -119,10 +119,10 @@
             <input class="form-field" id="oeste" placeholder="Colindancia al oeste" type="text">
         </div>
 
-        <div class="row">
+        <div class="row mt-2"> 
             <div class="col-12 col-md-4">
-                <label for="enganche"><b>Enganche</b></label>
-                <input class="form-field" id="enganche" placeholder="0.00" type="number">
+                <label for="contrato"><b>Contrato not.</b></label>
+                <input class="form-field" id="contrato" placeholder="0.00" type="number">
             </div>
             <div class="col-12 col-md-4">
                 <label for="plazo"><b>Plazo</b></label>
@@ -133,6 +133,23 @@
                 <input class="form-field" id="mensualidad" placeholder="0.00" type="number">
             </div>
         </div>
+
+        <div class="row mt-2">
+            <div class="col-12 col-md-4">
+                <label for="enganche_1"><b>Enganche 1</b></label>
+                <input class="form-field" id="enganche_1" placeholder="0.00" type="number">
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="enganche_2"><b>Enganche 2</b></label>
+                <input class="form-field" id="enganche_2" placeholder="0" type="number">
+            </div>
+            <div class="col-12 col-md-4">
+                <label for="enganche_3"><b>Enganche 3</b></label>
+                <input class="form-field" id="enganche_3" placeholder="0.00" type="number">
+            </div>
+        </div>
+
+
         </div>
         
 

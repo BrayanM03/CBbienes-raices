@@ -28,6 +28,7 @@ $(document).ready(function () {
                 <div class='row'>
                     <div class='col-12 col-md-12'>
                         <div class="btn btn-primary" onclick="verDetalleOrden(${row[0]})"><i class="fa-solid fa-eye"></i></div>
+                        <div class="btn btn-warning" onclick="eliminarOrden(${row[0]})"><i class="fa-solid fa-trash"></i></div>
                     </div>
                 </div>
                 `

@@ -25,6 +25,12 @@
                                         <span style="font-size: 19px; color: Gray;"><i class="fas fa-money-bill-wave"></i></span>
                                     </a>
                                 </li>
+
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#documentos-tab" id="documentos" href="#documentos-tab" data-toggle="tab" role="tab" aria-controls="documentos-tab" aria-selected="true">
+                                        <span style="font-size: 19px; color: Gray;"><i class="fas fa-folder"></i></span>
+                                    </a>
+                                </li>
                             </ul>
 
                             <div class="tab-content">
@@ -362,6 +368,31 @@
                                     </div>
                                 </div>
 
+                                <div class="tab-pane" id="documentos-tab" role="tabpanel" aria-labelledby="documentos">
+                                    <div class="card p-3" id="card-docs-cliente">
+                                        Documentos del cliente
+
+                                        <div class="row mt-5">
+                                            <div class="col-12">
+                                               <label for="ine">Copia INE</label> 
+                                               <input type="file" id="ine">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                               <label for="comprobante_domicilio">Comprobante de domicilio</label> 
+                                               <input type="file" id="comprobante_domicilio">
+                                            </div>
+                                        </div>
+                                        <div class="row mt-3">
+                                            <div class="col-12">
+                                               <label for="comprobante_rfc">RFC</label> 
+                                               <input type="file" id="comprobante_rfc">
+                                            </div>
+                                        </div>
+                                    </div>
+                                 </div>
+
                                 <div class="tab-pane" id="precios-tab" role="tabpanel" aria-labelledby="precios">
                                     <div class="card p-3">
                                         <div class="row">
@@ -432,6 +463,8 @@
                                     </div>
                                 </div>
 
+                                
+
 
                                 <div class="row justify-content-center">
                                 <div class="col-12 col-md-4">
@@ -444,7 +477,11 @@
 
                             </div>
 
+                            
+
                         </div>
+
+                        
 
                         <div class="col-md-4 mt-5 d-none" id="direcciones-agregadas">
                             <div class="card p-3">

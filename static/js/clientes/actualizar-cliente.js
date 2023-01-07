@@ -7,13 +7,17 @@ function actualizarCliente(id){
     let  rfc = $("#rfc").val();
     let  rfc_invalido = $("#resultado").hasClass("nel");
     let  telefono = $("#telefono").val();
-    let  contacto = $("#contacto").val();
+    let  contacto = $("#contacto").val(); 
     let  tipo_cliente = $("#bnt-reg-cliente").attr("tipo_cliente");
 
     let estado_civil = $("#estado-civil").val();
     let fecha_nacimiento = $("#fecha-nac").val();
     let lugar_nacimiento = $("#lugar-nac").val();
     let ocupacion = $("#ocupacion").val();
+
+    const file_ine = document.getElementById('file-ine').files[0];
+    const file_domicilio = document.getElementById('file-domicilio').files[0];
+    const file_rfc = document.getElementById('file-rfc').files[0];
 
     contacto == "" || contacto == " " ? contacto = "Sin definir": contacto =contacto;
     telefono == "" || telefono == " " ? telefono = "Sin definir": telefono =telefono;
@@ -144,25 +148,31 @@ function actualizarCliente(id){
       }); 
     
 
+      const formData = new FormData();
+      formData.append('id_cliente', id);
+      formData.append('file_ine', file_ine);
+      formData.append('file_domicilio', file_domicilio);
+      formData.append('file_rfc', file_rfc);
+      formData.append('razon_social', razon_social);
+      formData.append('rfc', rfc);
+      formData.append('telefono', telefono);
+      formData.append('contacto', contacto);
+      formData.append('estado_civil', estado_civil);
+      formData.append('lugar_nacimiento', lugar_nacimiento);
+      formData.append('ocupacion', ocupacion);
+      formData.append('fecha_nacimiento', fecha_nacimiento);
+      formData.append('tipo_cliente', tipo_cliente);
+      formData.append('direcciones', JSON.stringify(direcciones));
+      formData.append('cuentas', JSON.stringify(cuentas));
+      formData.append('correos', JSON.stringify(correos));
    
-     
+     console.log(formData);
       $.ajax({ 
           type: "POST",
           url: "../servidor/clientes/actualizar-cliente.php",
-          data: {"id_cliente": id_cliente,
-                 "razon_social": razon_social,
-                 "rfc": rfc,
-                 "telefono": telefono,
-                 "contacto": contacto,
-                 "estado_civil": estado_civil,
-                 "lugar_nacimiento": lugar_nacimiento,
-                 "ocupacion": ocupacion,
-                 "fecha_nacimiento": fecha_nacimiento,
-                 "tipo_cliente": tipo_cliente,
-                 "direcciones": JSON.stringify(direcciones),
-                 "cuentas": JSON.stringify(cuentas),
-                 "correos": JSON.stringify(correos),
-                 "categorias": JSON.stringify(categorias_lis)},
+          data: formData,
+          processData: false,
+          contentType: false,   
           dataType: "JSON",
           success: function (response) {
               

@@ -36,16 +36,55 @@ function realizarCompraVenta(){
                         icon: 'success',
                         html: response.mensaje,
                         allowOutsideClick: false,
-                        confirmButtonText: "Aceptar",
+                        confirmButtonText: "Aceptar", 
+                        didOpen: function(){
+
+                            if(response.array_detalle.length > 0){
+
+
+                            response.array_detalle.forEach(element => {
+                                guardarContrato(element.id,element.orden_id, response.datos_cliente.correo, response.datos_cliente.nombre, cliente)
+
+                                $("#detalles-de-orden").append(`
+                                <a href="#" class="list-group-item list-group-item-action">
+
+                                    <div class="row">
+                                        <div class="col-md-8">
+                                            Proyecto: ${element.proyecto} - Manzana: ${element.manzana} - Lote: ${element.lote}
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="btn btn-danger" onclick="verContrato( ${element.id},${element.orden_id})">Ver contrato</div>
+                                        </div>
+                                    </div>
+
+                                </a>
+                                `)
+
+                            });
+
+                            }else{
+                                $("#detalles-de-orden").append(`
+                                <a href="#" class="list-group-item list-group-item-action">
+                                    Sin datos
+                                </a>
+                                `)
+                            }
+
+
+                        },
                         html: `
                             <div class="container">
-                            <ul class="list-group list-group-flush">
-                                <li class="list-group-item">Cras justo odio</li>
-                                <li class="list-group-item">Dapibus ac facilisis in</li>
-                                <li class="list-group-item">Morbi leo risus</li>
-                                <li class="list-group-item">Porta ac consectetur ac</li>
-                                <li class="list-group-item">Vestibulum at eros</li>
-                            </ul>
+
+                            <div class="list-group">
+                            <a href="#" class="list-group-item list-group-item-action active" aria-current="true">
+                                Ver contratos
+                            </a>
+                            <div id="detalles-de-orden">
+                                
+                            </div>
+                            
+                            </div>
+
                             </div>
                         
                         `,

@@ -19,11 +19,19 @@ function verDetalleOrden(id){
             .then(response => response.json())
             .then((data) =>{
            
+                //Setando datos orden
+
+                $("#cliente").text(data.data.cliente_etiqueta);
+                $("#fecha").text(data.data.fecha);
+                $("#direccion").text(data.data.direccion);
+                $("#correo").text(data.data.correo);
 
              //Invocando graficos
              
                 // Pie chart
                 var triggerEl = document.querySelector('#list-tab a[href="#list-messages"]')
+                var triggerDocs = document.querySelector('#list-tab a[href="#list-settings"]')
+
                 //var tabElms = document.querySelectorAll('a[data-bs-toggle="list"]')
 
                 var tabElms = document.querySelectorAll('a[data-bs-toggle="list"]')
@@ -67,12 +75,18 @@ function verDetalleOrden(id){
                     let restante =    parseFloat(data.data.detalle_orden[0].restante)
                     let pagado =    parseFloat(data.data.detalle_orden[0].pagado)
 
-                    $("#precio-total").text(total)
-                    $("#total-abonado").text(pagado)
-                    $("#restante").text(restante)
+                    let total_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(total)
+                    let restante_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(restante)
+                    let total_abonado_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(pagado)
+
+                    $("#precio-total").text(total_f)
+                    $("#total-abonado").text(total_abonado_f)
+                    $("#restante").text(restante_f)
                     setGraph(pagado, restante)
 
 
+            }else if(event.target === triggerDocs){
+                establecerDocumentos(data.data.id_cliente)
             }else{
                 $("#area-grafico").empty()
                 console.log("no son los mismo");
@@ -95,25 +109,45 @@ function verDetalleOrden(id){
              $("#select-abonos").empty();
 
              data.data.detalle_orden.forEach(element => {
+                let total_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(element.precio)
+
+                if(element.estatus == "Vencida"){
+                    clase_lista = "list-group-item-danger"
+                }else{
+                    clase_lista = ""
+                }
                 $("#body-estatus").append(`
-                <a class="list-group-item list-group-item-action" id="list-profile-list">
+                <a class="list-group-item list-group-item-action ${clase_lista}" id="list-profile-list">
                 <div class="row">
-                        <div class="col-3">
+                        <div class="col-2">
                            ${element.codigo}
                         </div>
-                        <div class="col-3">
+                        <div class="col-2">
                            ${element.proyecto}
                         </div>
-                        <div class="col-2">
+                        <div class="col-1">
                           ${element.manzana}
                         </div>
-                        <div class="col-2">
+                        <div class="col-1">
                           ${element.lote}
                         </div>
-                        <div class="col-2">
-                          ${element.precio}
+                        <div class="col-2"> 
+                          ${total_f}
    
                         </div>
+                        <div class="col-2"> 
+                        ${element.fecha_vencimiento}
+ 
+                      </div>
+                        <div class="col-1"> 
+                          ${element.estatus}
+   
+                        </div>
+
+                        <div class="col-1">  
+                            <div class="btn btn-warning" onclick="eliminarDetalle(${element.id}, ${id})"><i class="fa-solid fa-trash"></i></div>
+                        </div>
+
                 </div>
    
                 </a>
@@ -122,8 +156,14 @@ function verDetalleOrden(id){
 
              //Contratos
              data.data.detalle_orden.forEach(element => {
+                if(element.estatus == "Vencida"){
+                    clase_lista = "list-group-item-danger"
+                }else{
+                    clase_lista = ""
+                }
+
                 $("#body-contratos").append(`
-                <a class="list-group-item list-group-item-action" id="list-profile-list">
+                <a class="list-group-item list-group-item-action ${clase_lista}" id="list-profile-list">
                 <div class="row">
                         <div class="col-3">
                            ${element.codigo}
@@ -138,7 +178,7 @@ function verDetalleOrden(id){
                           ${element.lote}
                         </div>
                         <div class="col-2">
-                          <div class="btn btn-danger" onclick="verDetalleOrden( ${element.codigo})"><i class="fa-solid fa-file-pdf"></i></div>
+                          <div class="btn btn-danger" onclick="verContrato( ${element.id},${element.orden_id})"><i class="fa-solid fa-file-pdf"></i></div>
                         </div>
                 </div>
    
@@ -160,12 +200,16 @@ function verDetalleOrden(id){
              let primer_terreno = data.data.detalle_orden[0]
              const abonos_primer_terreno = primer_terreno.abonos
              let ide_detalle = primer_terreno.id
-             $("#btn-add-abono").attr("href", "agregar-abono.php?orden_id=" + ide_detalle)
+             $("#btn-add-abono").attr("href", "agregar-abono.php?orden_id="+ data.data.id +"&terreno_detalle_id=" + ide_detalle)
              $("#btn-add-abono").attr("target", "_blank" )
              
              $("#body-abonos").empty()
              if(abonos_primer_terreno !== undefined){
                 abonos_primer_terreno.forEach(el => {
+                    let total = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.total)
+                    let restante = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.restante)
+                    let total_abonado = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.total_abonado)
+
                     $("#body-abonos").append(`
                     <a class="list-group-item list-group-item-action">
                             <div class="row">
@@ -177,13 +221,13 @@ function verDetalleOrden(id){
                                     ${el.fecha}
                                 </div>
                                 <div class="col-1">
-                                    ${el.total}
+                                    ${total}
                                 </div>
                                 <div class="col-2">
-                                    ${el.restante}
+                                    ${restante}
                                 </div>
                                 <div class="col-2">
-                                    ${el.total_abonado}
+                                    ${total_abonado}
     
                                 </div>
                                 <div class="col-2">
@@ -191,6 +235,8 @@ function verDetalleOrden(id){
                                 </div>
                                 <div class="col-2">
                                 <div class="btn btn-danger" onclick="verTicketABono( ${el.id})"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="btn btn-warning" onclick="eliminarAbono(${el.id}, ${id})"><i class="fa-solid fa-trash"></i></div>
+                               
                                 </div>
                             </div>
     
@@ -216,18 +262,29 @@ function verDetalleOrden(id){
              $("#select-abonos").change(()=>{
                 let id_detalle = $("#select-abonos").val();
 
-                $("#btn-add-abono").attr("href", "agregar-abono.php?terreno_detalle_id=" + id_detalle)
+                $("#btn-add-abono").attr("href", "agregar-abono.php?orden_id="+ data.data.id +"&terreno_detalle_id=" + id_detalle)
                 $("#btn-add-abono").attr("target", "_blank" )
            
                 $("#body-abonos").empty()
                 data.data.detalle_orden.forEach(elemento => {
 
                     const arr_element = elemento.abonos.filter(el => el.detalle_id == id_detalle);
+                   
 
                     if(arr_element.length > 0) {
                         arr_element.forEach(el => {
+                            if(el.estatus == "Vencida"){
+                                clase_lista = "list-group-item-danger"
+                            }else{
+                                clase_lista = ""
+                            }
+
+                            let total = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.total)
+                            let restante = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.restante)
+                            let total_abonado = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(el.total_abonado)
+
                             $("#body-abonos").append(`
-                            <a class="list-group-item list-group-item-action">
+                            <a class="list-group-item list-group-item-action ${clase_lista}">
                                     <div class="row">
     
                                         <div class="col-1">
@@ -237,13 +294,13 @@ function verDetalleOrden(id){
                                             ${el.fecha}
                                         </div>
                                         <div class="col-1">
-                                            ${el.total}
+                                            ${total}
                                         </div>
                                         <div class="col-2">
-                                            ${el.restante}
+                                            ${restante}
                                         </div>
                                         <div class="col-2">
-                                            ${el.total_abonado}
+                                            ${total_abonado}
     
                                         </div>
                                         <div class="col-2">
@@ -261,10 +318,14 @@ function verDetalleOrden(id){
                         let total =    parseFloat(elemento.precio)
                         let restante =    parseFloat(elemento.restante)
                         let pagado =    parseFloat(elemento.pagado)
+
+                        let total_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(total)
+                        let restante_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(restante)
+                        let total_abonado_f = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(pagado)
     
-                        $("#precio-total").text(total)
-                        $("#total-abonado").text(pagado)
-                        $("#restante").text(restante)
+                        $("#precio-total").text(total_f)
+                        $("#total-abonado").text(total_abonado_f)
+                        $("#restante").text(restante_f)
                         setGraph(pagado, restante)
                     }
                     
@@ -291,14 +352,19 @@ function verDetalleOrden(id){
             <div class="row">
               <div class="col-6 tarjeta-cliente">
                     <div class="row">
-                        <div class="col-md-6">
+                        <div class="col-md-4">
                         <label><b>Cliente:</b></label><br/>
                         <span id="cliente">Brayan Maldonado Morgado</span>
                         </div>
         
-                        <div class="col-md-6">
+                        <div class="col-md-3">
                         <label><b>Telefono:</b></label><br/>
                         <span id="telefono">8683471939</span>
+                        </div>
+
+                        <div class="col-md-3">
+                        <label><b>Fecha:</b></label><br/>
+                        <span id="fecha"></span>
                         </div>
                     </div>
                     <div class="row">
@@ -345,20 +411,31 @@ function verDetalleOrden(id){
                                     <a class="list-group-item list-group-item-action" id="list-header-t">
                                         <div class="row">
 
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <b>Codigo: </b>
                                             </div>
-                                            <div class="col-3">
+                                            <div class="col-2">
                                                 <b>Proyecto: </b>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <b>Manzana: </b>
                                             </div>
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <b>Lote: </b>
                                             </div>
                                             <div class="col-2">
                                                 <b>Precio </b>
+                                            </div>
+                                            <div class="col-2"> 
+                                            Vence
+                     
+                                          </div>
+                                            <div class="col-1"> 
+                                              Estatus
+                       
+                                            </div>
+                                            <div class="col-1">
+                                                <b>Acción </b>
                                             </div>
                                         </div>
 
@@ -425,7 +502,7 @@ function verDetalleOrden(id){
                                     <div class="mr-2 col-2">
                                         <a href="" id="btn-add-abono" target="_blank"><div class="btn btn-primary" style="margin-top:20px">Agregar abono </div></a>
                                     </div>
-                                </div>
+                                </div> 
 
                                 <div class="row mt-3">
                                     <div class="col-12 col-md-12">

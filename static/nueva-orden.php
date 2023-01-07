@@ -119,16 +119,24 @@ if (empty($_SESSION["id"])) {
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
     <script src="../vendor/nice-select/js/jquery.nice-select.min.js"></script>
 
+     
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
+
     <!-- Mis scripts -->
+    <script src="js/reportes/numero_letras.js"></script>
     <script src="./js/nueva-orden/seleccionar-cliente.js"></script>
     <script src="./js/nueva-orden/formulario.js"></script>
     <script src="./js/nueva-orden/tabla-preorden.js"></script>
     <script src="./js/nueva-orden/procesar-compra-venta.js"></script>
     <script src="./js/nueva-orden/cambiar-valor-selects.js"></script>
     <script src="./js/nueva-orden/ver-detalle-orden.js"></script>
-    <script src="./js/reportes/logo.js"></script>
-    <script src="./js/reportes/fuente.js"></script>
-    <script src="./js/reportes/reporte-cotizacion.js"></script>
+
+   <script src="js/reportes/logo-monte-alto.js"></script>
+    <script src="js/reportes/logo-cb.js"></script>
+    <script src="js/reportes/plantilla-contrato.js"></script>
+    <script src="js/reportes/guardar-contrato.js"></script>
   
     <script>
         

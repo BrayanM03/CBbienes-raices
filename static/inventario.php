@@ -51,7 +51,7 @@ if (empty($_SESSION["id"])) {
                             
                         </div>
                         <div class="col-12 col-md-6 text-end">
-                            <a href="agregar-producto.php?store_id=<?php echo $_GET['store_id'] ?>&name=<?php echo $_GET['name'] ?>"><div class="btn btn-success">Agregar nuevo</div></a>
+                            <a href="registrar-terreno.php"><div class="btn btn-success">Agregar nuevo</div></a>
                         </div>
                     </div>
 
