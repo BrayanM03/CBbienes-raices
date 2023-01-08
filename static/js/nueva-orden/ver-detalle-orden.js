@@ -86,6 +86,7 @@ function verDetalleOrden(id){
 
 
             }else if(event.target === triggerDocs){
+                $("#area-grafico").empty()
                 establecerDocumentos(data.data.id_cliente)
             }else{
                 $("#area-grafico").empty()
@@ -234,14 +235,14 @@ function verDetalleOrden(id){
                                  ${el.etiqueta}
                                 </div>
                                 <div class="col-2">
-                                <div class="btn btn-danger" onclick="verTicketABono( ${el.id})"><i class="fa-solid fa-file-pdf"></i></div>
+                                <div class="btn btn-danger" onclick="verTicketAbono( ${el.id})"><i class="fa-solid fa-file-pdf"></i></div>
                                 <div class="btn btn-warning" onclick="eliminarAbono(${el.id}, ${id})"><i class="fa-solid fa-trash"></i></div>
                                
                                 </div>
                             </div>
     
                         </a>
-                        `);
+                        `); 
                  })
              }else{
                 $("#body-abonos").append(`
@@ -307,7 +308,7 @@ function verDetalleOrden(id){
                                          ${el.etiqueta}
                                         </div>
                                         <div class="col-2">
-                                        <div class="btn btn-danger" onclick="verTicketABono( ${el.id})"><i class="fa-solid fa-file-pdf"></i></div>
+                                        <div class="btn btn-danger" onclick="verTicketAbono( ${el.id})"><i class="fa-solid fa-file-pdf"></i></div>
                                         </div>
                                     </div>
     

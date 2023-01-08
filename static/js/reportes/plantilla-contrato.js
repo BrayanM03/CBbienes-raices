@@ -42,9 +42,6 @@ doc.setFontType("bolditalic"); // set font
 
 
   doc.setFontType("bold");
-  doc.setFontType("normal");
-
-  doc.setFontType("bold")
   doc.setFontSize(11);
   doc.text( "CESION DE DERECHOS DE POSESION PARCELARIA",49, 34);
   doc.setFontType("normal")
@@ -256,7 +253,7 @@ Para la interpretación y cumplimiento del presente instrumento, ambas partes se
                                       
                                                       __________________________________
   
-                                                            C. MARIA DAVID AGUILAR DURAN
+                                                            C. ${cliente_mayus}
  
 
                                                                          TESTIGOS 

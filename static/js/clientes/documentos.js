@@ -124,7 +124,7 @@ function establecerDocumentos(cliente_id){
 
                 $("#area-ine-actualizar").empty().append(`
                 <a href="#" class="btn btn-success" onclick="cargarArchivo(1)">Cargar</a>
-                <input type="file" class="d-none" id="file-ine">
+                <input type="file" class="d-none" id="file-ine"> 
                 `)
 
                 $("#area-ine-eliminar").empty().append(`

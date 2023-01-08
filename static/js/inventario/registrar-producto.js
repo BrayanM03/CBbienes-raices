@@ -121,7 +121,7 @@ async function validarCodigo(codigo) {
 
         console.log(data);
          
-        await fetch('../servidor/inventario/validar-codigo.php',{
+        await fetch('../servidor/inventario/validar-codigo.php',{ 
          method: 'POST',
          body: JSON.stringify(data),
          headers:{

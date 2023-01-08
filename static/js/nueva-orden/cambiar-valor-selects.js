@@ -31,7 +31,7 @@ function updateSecondSelect() {
 .then(resultado => {
   if(resultado.estatus == true){
     resultado.resultado.forEach(element => {
-      manzana_select.innerHTML += `
+      manzana_select.innerHTML += ` 
       <option value="${element.no_manzana}">Manzana ${element.no_manzana}</option>
       `
     });
@@ -64,14 +64,14 @@ precio_input.value = ''
 function updateThirdSelect() {
     // Obtener el valor seleccionado en el primer select
   const manzana_value = manzana_select.value;
-
+  let proyecto = $("#proyecto").val();
   // Limpiar el contenido del segundo select
 
 
 
-  fetch('../servidor/nueva-orden/traer-datos-select.php', {
+  fetch('../servidor/nueva-orden/traer-lotes-nueva-orden.php', {
   method: 'POST',
-  body: JSON.stringify({indicador:'manzana', dato:manzana_value, tabla: 'terrenos'}),
+  body: JSON.stringify({indicador:'manzana', dato:manzana_value, proyecto: proyecto, tabla: 'terrenos'}),
   headers: {
     'Content-Type': 'application/json'
   }

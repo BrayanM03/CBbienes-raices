@@ -38,13 +38,13 @@ function establecerDocumentos(cliente_id){
                                         <a class="list-group-item list-group-item-action">
                                             <div class="row">
                                                 <div class="col-4" id="area-ine">
-                                                    <a href="./docs/C${cliente_id}/INE.${response.EXT_INE}" target="_blank"><img src="./img/ine.png" style="width: 2rem;"></a>
+                                                   
                                                 </div>
                                                 <div class="col-4" id="area-domicilio">
-                                                    <a href="./docs/C${cliente_id}/COMPROBANTE DE DOMICILIO.${response.EXT_DOMICILIO}" target="_blank"><img src="./img/domicilio.png" style="width: 2rem;"></a>
+                                                   
                                                 </div>
                                                 <div class="col-4" id="area-rfc">
-                                                    <a href="./docs/C${cliente_id}/RFC.${response.EXT_RFC}" target="_blank"> <img src="./img/rfc.png" style="width: 2rem;"></a>
+                                                   
                                                 </div>
                                             </div>
                                         </a>
@@ -59,6 +59,11 @@ function establecerDocumentos(cliente_id){
                     <a target="_blank"><img src="./img/ine_false.png" style="width: 2rem;"></a>
                       
                     `)
+                }else{
+                    $("#area-ine").empty().append(`
+                    <a href="./docs/C${cliente_id}/INE.${response.EXT_INE}" target="_blank"><img src="./img/ine.png" style="width: 2rem;"></a>
+                      
+                    `)
                 }
 
                 if(response.DOMICILIO == false){
@@ -66,11 +71,21 @@ function establecerDocumentos(cliente_id){
                     <a target="_blank"><img src="./img/domicilio_false.png" style="width: 2rem;"></a>
                       
                     `)
+                }else{
+                    $("#area-domicilio").empty().append(`
+                    <a href="./docs/C${cliente_id}/COMPROBANTE DE DOMICILIO.${response.EXT_DOMICILIO}" target="_blank"><img src="./img/domicilio.png" style="width: 2rem;"></a>
+                      
+                    `)
                 }
 
                 if(response.RFC == false){
                     $("#area-rfc").empty().append(`
                     <a target="_blank"><img src="./img/rfc_false.png" style="width: 2rem;"></a>
+                      
+                    `)
+                }else{
+                    $("#area-rfc").empty().append(`
+                    <a href="./docs/C${cliente_id}/RFC.${response.EXT_RFC}" target="_blank"><img src="./img/rfc.png" style="width: 2rem;"></a>
                       
                     `)
                 }

@@ -111,7 +111,7 @@ if (empty($_SESSION["id"])) {
     <script src="js/app.js"></script>
 
     <!-- Librerias -->
-    <script src="https://kit.fontawesome.com/31a28ea63e.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5c955c6e98.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>

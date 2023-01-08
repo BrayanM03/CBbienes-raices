@@ -20,18 +20,18 @@ try {
     //Server settings
    /*  $mail->SMTPDebug = SMTP::DEBUG_SERVER; */                      //Enable verbose debug output
     $mail->isSMTP();                                            //Send using SMTP
-    $mail->Host       = 'smtp.hostinger.com';                     //Set the SMTP server to send through
+    $mail->Host       = 'mail.cbbienesraices.com.mx';                     //Set the SMTP server to send through
     $mail->SMTPAuth   = true;                                   //Enable SMTP authentication
-    $mail->Username   = 'brayan@mabac.net';                     //SMTP username
-    $mail->Password   = 'Pudindepapa123!';                               //SMTP password
+    $mail->Username   = 'ventas@cbbienesraices.com.mx';                     //SMTP username
+    $mail->Password   = '^1dwr+(eq*K&';                               //SMTP password
     $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;            //Enable implicit TLS encryption
     $mail->Port       = 465;                                    //TCP port to connect to; use 587 if you have set `SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS`
 
     //Recipients
-    $mail->setFrom('brayan@mabac.net', 'Brayan Maldonado');
+    $mail->setFrom('ventas@cbbienesraices.com.mx', 'CBbienes raices');
     $mail->addAddress($correo_cliente, $nombre_cliente);     //Add a recipient
    
-    $mail->addReplyTo('brayan@mabac.net', 'Information');
+    $mail->addReplyTo('ventas@cbbienesraices.com.mx', 'Information');
    
 
     //Attachments
@@ -52,7 +52,7 @@ try {
     </div>
     <div class="firma">
         <div style="display: flex; flex-direction:row; justify-content:start; align-items:center;">
-        <img src="../../static/img/logo-cb.png" style="width:30px;"> <b>Bienes Raices</b>
+        <img src="https://cbbienesraices.com.mx/static/img/logo-cb.png" style="width:30px;"> <b>Bienes Raices</b>
         </div>
 
         <div style="display: flex; flex-direction:column" style="height: 2rem; color: gray">

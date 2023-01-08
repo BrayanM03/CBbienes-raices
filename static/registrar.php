@@ -1,6 +1,11 @@
 <!DOCTYPE html>
 <html lang="en">
+<?php
+session_start();
 
+if (empty($_SESSION["id"] || $_SESSION['rol'] !== 'manager')) {
+    header("Location:login.php");
+} ?>
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">

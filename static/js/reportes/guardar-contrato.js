@@ -256,7 +256,7 @@ function guardarContrato(detalle_id, orden_id, cliente_correo, cliente_nombre,cl
                                           
                                                           __________________________________
       
-                                                                C. MARIA DAVID AGUILAR DURAN
+                                                                C. ${cliente_mayus}
      
     
                                                                              TESTIGOS 

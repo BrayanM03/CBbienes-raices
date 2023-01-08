@@ -11,7 +11,7 @@ $data = json_decode($request_body, true);
     if(empty($data['modo'])){
         $codigo = $data['codigo'];
    
-        $insert = "SELECT COUNT(*) FROM inventario WHERE codigo = ?";
+        $insert = "SELECT COUNT(*) FROM terrenos WHERE codigo = ?";
         $resp = $con->prepare($insert);
         $resp->execute([$codigo]);
         $total = $resp->fetchColumn();
@@ -31,7 +31,7 @@ $data = json_decode($request_body, true);
         $codigo = $data['codigo'];
         $codigo_actual = $data['codigo'];	//Codigo actual del producto
    
-        $insert = "SELECT COUNT(*) FROM inventario WHERE codigo = ? AND codigo != ?";
+        $insert = "SELECT COUNT(*) FROM terrenos WHERE codigo = ? AND codigo != ?";
         $resp = $con->prepare($insert);
         $resp->execute([$codigo, $codigo_actual]);
         $total = $resp->fetchColumn();

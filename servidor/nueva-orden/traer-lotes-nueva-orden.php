@@ -8,19 +8,20 @@ $_post = json_decode(file_get_contents('php://input'),true);
 $valor = $_post['dato'];
 $tabla = $_post['tabla'];
 $indicador = $_post['indicador'];
+$proyecto = $_post['proyecto'];
 // Creamos un array vacío para almacenar los datos
 $datos = array();
 // Creamos una consulta preparada
-$contar = $con->prepare("SELECT COUNT(*) FROM $tabla WHERE $indicador = ?");
-$contar->execute([$valor]);
+$contar = $con->prepare("SELECT COUNT(*) FROM $tabla WHERE $indicador = ? AND proyecto = ? AND estatus ='Disponible'");
+$contar->execute([$valor, $proyecto]);
 $total = $contar->fetchColumn();
 $contar->closeCursor();
 
 if($total > 0) {
-  $consulta = $con->prepare("SELECT * FROM $tabla WHERE $indicador = ?");
+  $consulta = $con->prepare("SELECT * FROM $tabla WHERE $indicador = ? AND proyecto = ? AND estatus = 'Disponible'");
 
   $consulta->bindParam(':tabla', $tabla);
-  $consulta->execute([$valor]);
+  $consulta->execute([$valor, $proyecto]);
   
   // Obtenemos el resultado de la consulta
   $resultado = $consulta->fetchAll(PDO::FETCH_ASSOC);;

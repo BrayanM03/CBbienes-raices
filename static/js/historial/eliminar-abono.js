@@ -65,7 +65,7 @@ function eliminarAbono(abono_id, orden_id){
 
 
 
-const Toast = Swal.mixin({
+/* const Toast = Swal.mixin({
     toast: true,
     position: 'bottom-end',
     showConfirmButton: false,
@@ -75,4 +75,4 @@ const Toast = Swal.mixin({
       toast.addEventListener('mouseenter', Swal.stopTimer)
       toast.addEventListener('mouseleave', Swal.resumeTimer)
     }
-  })
+  }) */

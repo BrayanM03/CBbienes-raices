@@ -126,7 +126,7 @@ if (empty($_SESSION["id"])) {
     <script src="js/app.js"></script>
 
     <!-- Librerias -->
-    <script src="https://kit.fontawesome.com/31a28ea63e.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5c955c6e98.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
@@ -149,6 +149,7 @@ if (empty($_SESSION["id"])) {
     <script src="js/historial/eliminar-abono.js"></script>
     <script src="js/historial/eliminar-detalle.js"></script>
     <script src="js/historial/documentos.js"></script>
+    <script src="js/reportes/ticket-abono-pdf.js"></script>
 
 
 </body>

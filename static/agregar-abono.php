@@ -49,7 +49,7 @@ if (empty($_SESSION["id"])) {
 
                     <div class="row mb-2">
                         <div class="col-12 col-md-6">
-                            <h1 class="h3 mb-3">Agregar abono <?php echo $_GET['name'] ?></h1>
+                            <h1 class="h3 mb-3">Agregar abono</h1>
                         </div>
                     </div>
 
@@ -237,18 +237,23 @@ if (empty($_SESSION["id"])) {
     <script src="js/app.js"></script>
 
     <!-- Librerias -->
-    <script src="https://kit.fontawesome.com/31a28ea63e.js" crossorigin="anonymous"></script>
+    <script src="https://kit.fontawesome.com/5c955c6e98.js" crossorigin="anonymous"></script>
     <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     <script src="https://cdn.datatables.net/1.12.1/js/jquery.dataTables.min.js"></script>
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
+      
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
     <script src="js/progressjs/progressbarmin.js"></script>
 
-    <!-- Mis scripts -->
+    <!-- Mis scripts --> 
     <script src="js/abonos/reload.js"></script>
     <script src="js/abonos/nuevo-abono.js"></script>
     <script src="js/abonos/realizar-abono.js"></script>
-    <!-- <script src="js/clientes/traer-lista.js"></script>
-    <script src="js/clientes/eliminar-cliente.js"></script>
+    <script src="js/reportes/logo-monte-alto.js"></script>
+    <script src="js/reportes/logo-cb.js"></script>
+    <script src="js/reportes/ticket-abono-pdf.js"></script>
  -->
 </body>
 

@@ -295,7 +295,7 @@ function agregarManzana(){
 
 };
 
-function eliminarProducto(id_prod){
+function eliminarProducto(id_manzana){
 
   Swal.fire({
     icon: "question",
@@ -308,22 +308,24 @@ function eliminarProducto(id_prod){
 
       let dato = {
         type: "eliminacion",
-        id_detalle: id_prod
+        id_detalle: id_manzana
     };
 
       $.ajax({
         type: "POST",
-        url: "../servidor/inventario/tabla-preentrada.php",
+        url: "../servidor/inventario/eliminar-manzana.php",
         data: dato,
         dataType: "JSON",
         success: function (response) {
-        
-        validarTabla()
-        tabla.ajax.reload(null, false);
-        Toast.fire({
-          icon: 'success',
-          title: response.mensj
-        })
+          if(response.estatus == true){
+       
+            tabla.ajax.reload(null, false);
+            Toast.fire({
+              icon: 'success',
+              title: response.mensaje
+            })
+          }
+       
           
         }
     });

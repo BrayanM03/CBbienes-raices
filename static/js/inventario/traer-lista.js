@@ -19,7 +19,7 @@ $(document).ready(function () {
             { data:null, title:'Codigo',
             render: function(row) {
               return `<div class='container-code'>
-                         T${row[1]}
+                         ${row[1]}
                       </div>
                       `
             }
@@ -59,9 +59,12 @@ $(document).ready(function () {
 
            { data:null, title:'Config', render: (row)=>{
             return `
-                <div class="btn btn-info">
-                <i class="fa-solid fa-gear"></i>
-                </div>
+            <div class='row'>
+            <div class='col-12 col-md-12'>
+                <div class="btn btn-primary" onclick="editarTerreno(${row[0]})"><i class="fa-solid fa-edit"></i></div>
+                <div class="btn btn-warning" onclick="eliminarTerreno(${row[0]})"><i class="fa-solid fa-trash"></i></div>
+            </div>
+        </div>
             `;
           }}
             /* { data:null, title:'Opciones', render: function(row){

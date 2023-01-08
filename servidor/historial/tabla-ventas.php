@@ -73,7 +73,7 @@ $sql_details = $credenciales_db;
 require( '../database/ssp.class.php' );
 
 echo json_encode(
-	SSP::complex( $_GET, $sql_details, $table, $primaryKey, $columns)
+	SSP::simple( $_GET, $sql_details, $table, $primaryKey, $columns)
 );
 
 

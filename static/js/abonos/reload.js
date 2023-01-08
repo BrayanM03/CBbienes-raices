@@ -81,7 +81,7 @@ function cargarDatosPagina(){
                         <td>${element.etiqueta}</td>
                         <td>${element.tipo}</td>
                         <td>
-                        <div class="btn btn-danger" onclick="verTicketABono( ${element.id})"><i class="fa-solid fa-file-pdf"></i></div>
+                        <div class="btn btn-danger" onclick="verTicketAbono( ${element.id})"><i class="fa-solid fa-file-pdf"></i></div>
                         <div class="btn btn-warning" onclick="borrarTicketABono( ${element.id})"><i class="fa-solid fa-trash"></i></div>
                         </td>
                     </tr>
