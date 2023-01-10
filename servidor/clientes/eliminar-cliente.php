@@ -39,7 +39,23 @@
     $res->execute();
     $res->closeCursor();
 
+    $path = '../../static/docs/C'.$id_cliente;
+    deleteDirectory($path);
+
     print_r(1);
+
+    function deleteDirectory($dir) {
+        if(!$dh = @opendir($dir)) return;
+        while (false !== ($current = readdir($dh))) {
+            if($current != '.' && $current != '..') {
+                
+                if (!@unlink($dir.'/'.$current)) 
+                    deleteDirectory($dir.'/'.$current);
+            }       
+        }
+        closedir($dh);
+        @rmdir($dir);
+    }
 
 
 

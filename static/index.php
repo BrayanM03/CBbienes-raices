@@ -71,6 +71,8 @@ if(!isset($_SESSION))
 		$abonado_este_mes= $res->fetchColumn();
 		$res->closeCursor();
 		$abonado_este_mes = number_format($abonado_este_mes, 2);
+
+
 	}else{
 		$abonado_este_mes = 0.00;
 		$abonado_este_mes = number_format($abonado_este_mes, 2);
@@ -169,10 +171,7 @@ if(!isset($_SESSION))
 													</div>
 												</div>
 												<h1 class="mt-1 mb-3"><?php echo $total_clientes ?></h1>
-												<div class="mb-0">
-													<span class="text-success"> <i class="mdi mdi-arrow-bottom-right"></i> 5.25% </span>
-													<span class="text-muted">Since last week</span>
-												</div>
+												
 											</div>
 										</div>
 									</div>
@@ -226,7 +225,7 @@ if(!isset($_SESSION))
 							<div class="card flex-fill w-100">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Recent Movement</h5>
+									<h5 class="card-title mb-0">Ventas por mes</h5>
 								</div>
 								<div class="card-body py-3">
 									<div class="chart chart-sm">
@@ -236,7 +235,7 @@ if(!isset($_SESSION))
 							</div>
 						</div>
 					</div>
-
+<!-- 
 					<div class="row">
 						<div class="col-12 col-md-6 col-xxl-3 d-flex order-2 order-xxl-3">
 							<div class="card flex-fill w-100">
@@ -298,97 +297,102 @@ if(!isset($_SESSION))
 								</div>
 							</div>
 						</div>
-					</div>
+					</div> -->
 
 					<div class="row">
-						<div class="col-12 col-lg-8 col-xxl-9 d-flex">
+						<div class="col-12 col-lg-12 col-xxl-12 d-flex">
 							<div class="card flex-fill">
 								<div class="card-header">
 
-									<h5 class="card-title mb-0">Latest Projects</h5>
+									<h5 class="card-title mb-0">Ultimos abonos</h5>
 								</div>
 								<table class="table table-hover my-0">
 									<thead>
 										<tr>
-											<th>Name</th>
-											<th class="d-none d-xl-table-cell">Start Date</th>
-											<th class="d-none d-xl-table-cell">End Date</th>
-											<th>Status</th>
-											<th class="d-none d-md-table-cell">Assignee</th>
+											<th>Cliente</th>
+											<th class="d-none d-xl-table-cell">Fecha</th>
+											<th class="d-none d-md-table-cell">Proyecto</th>
+											<th class="d-none d-md-table-cell">Manzana</th>
+											<th class="d-none d-md-table-cell">lote</th>
+											<th class="d-none d-md-table-cell">Abonado</th>
+											<th class="d-none d-md-table-cell">Vendedor</th>
 										</tr>
 									</thead>
 									<tbody>
-										<tr>
-											<td>Project Apollo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
+										<?php
+
+										if ($total_abonos_mes > 0) {
+									
+											$select_abonos = "SELECT * FROM abonos WHERE MONTH(fecha) = ?  AND YEAR(fecha) = ?";
+											$resk = $con->prepare($select_abonos);
+											$resk->execute([$mes, $year]);
+											
+											while ($row = $resk->fetch()) {
+												$orden_id = $row['orden_id'];
+												$detalle_id = $row['detalle_id']; 
+												$fecha_abono = $row['fecha'];
+												$monto_abono = $row['total'];
+											
+												$select_abonos = "SELECT * FROM ordenes WHERE id = ?";
+												$resh = $con->prepare($select_abonos);
+												$resh->execute([$orden_id]);
+												while ($rown = $resh->fetch()) {
+													$cliente_etiqueta = $rown["cliente_etiqueta"];
+												}
+												$resh->closeCursor();
+
+												$select_detalle = "SELECT * FROM detalle_orden WHERE id = ?";
+												$reshf = $con->prepare($select_detalle);
+												$reshf->execute([$detalle_id]);
+												while ($rowm = $reshf->fetch()) {
+													$proyecto = $rowm["proyecto"];
+													$manzana = $rowm["manzana"];
+													$lote = $rowm["lote"];
+													$usuario_id = $rowm["usuario_id"];
+													
+													$select_user = "SELECT * FROM usuarios WHERE id = ?";
+													$rx = $con->prepare($select_user);
+													$rx->execute([$usuario_id]);
+													while ($fil = $rx->fetch()) {
+														$vendedor = $fil["nombre"] . " " . $fil["apellido"];
+													}
+													$rx->closeCursor();
+													
+													
+												}
+												$reshf->closeCursor();
+												
+
+												echo "
+												
+												<tr>
+											<td>$cliente_etiqueta</td>
+											<td class='d-none d-xl-table-cell'>$fecha_abono</td>
+											<td class='d-none d-md-table-cell'>$proyecto</td>
+											<td class='d-none d-md-table-cell'>$manzana</td>
+											<td class='d-none d-md-table-cell'>$lote</td>
+											<td class='d-md-table-cell'>$monto_abono</td>
+											<td class='d-none d-md-table-cell'>$vendedor</td>
 										</tr>
-										<tr>
-											<td>Project Fireball</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-danger">Cancelled</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project Hades</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Nitro</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">Vanessa Tucker</td>
-										</tr>
-										<tr>
-											<td>Project Phoenix</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
-										<tr>
-											<td>Project X</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Sharon Lessman</td>
-										</tr>
-										<tr>
-											<td>Project Romeo</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-success">Done</span></td>
-											<td class="d-none d-md-table-cell">Christina Mason</td>
-										</tr>
-										<tr>
-											<td>Project Wombat</td>
-											<td class="d-none d-xl-table-cell">01/01/2021</td>
-											<td class="d-none d-xl-table-cell">31/06/2021</td>
-											<td><span class="badge bg-warning">In progress</span></td>
-											<td class="d-none d-md-table-cell">William Harris</td>
-										</tr>
+												";
+
+											}
+											$resk->closeCursor();
+										}else{
+
+											echo "
+												
+											<tr colspan='7'>
+												<td class='text-center'>No hay abonos realizados</td>
+											</tr>
+												";
+
+										}
+
+										?>
+										
 									</tbody>
 								</table>
-							</div>
-						</div>
-						<div class="col-12 col-lg-4 col-xxl-3 d-flex">
-							<div class="card flex-fill w-100">
-								<div class="card-header">
-
-									<h5 class="card-title mb-0">Monthly Sales</h5>
-								</div>
-								<div class="card-body d-flex w-100">
-									<div class="align-self-center chart chart-lg">
-										<canvas id="chartjs-dashboard-bar"></canvas>
-									</div>
-								</div>
 							</div>
 						</div>
 					</div>
@@ -435,28 +439,35 @@ if(!isset($_SESSION))
 			gradient.addColorStop(0, "rgba(215, 227, 244, 1)");
 			gradient.addColorStop(1, "rgba(215, 227, 244, 0)");
 			// Line chart
-			new Chart(document.getElementById("chartjs-dashboard-line"), {
+
+			$.ajax({
+				type: "POST",
+				url: "../servidor/panel/terrenos-vendidos-pormes.php",
+				data: "data",
+				dataType: "JSON",
+				success: function (response) {
+					new Chart(document.getElementById("chartjs-dashboard-line"), {
 				type: "line",
 				data: {
 					labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
 					datasets: [{
-						label: "Sales ($)",
+						label: "Total:",
 						fill: true,
 						backgroundColor: gradient,
 						borderColor: window.theme.primary,
 						data: [
-							2115,
-							1562,
-							1584,
-							1892,
-							1587,
-							1923,
-							2566,
-							2448,
-							2805,
-							3438,
-							2917,
-							3327
+							parseInt(response.Enero),
+							parseInt(response.Febrero),
+							parseInt(response.Marzo),
+							parseInt(response.Abril),
+							parseInt(response.Mayo),
+							parseInt(response.Junio),
+							parseInt(response.Julio),
+							parseInt(response.Agosto),
+							parseInt(response.Septiembre),
+							parseInt(response.Octubre),
+							parseInt(response.Noviembre),
+							parseInt(response.Diciembre)
 						]
 					}]
 				},
@@ -496,10 +507,14 @@ if(!isset($_SESSION))
 					}
 				}
 			});
+				}
+			});
+
+			
 		});
 	</script>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		/* document.addEventListener("DOMContentLoaded", function() {
 			// Pie chart
 			new Chart(document.getElementById("chartjs-dashboard-pie"), {
 				type: "pie",
@@ -524,10 +539,10 @@ if(!isset($_SESSION))
 					cutoutPercentage: 75
 				}
 			});
-		});
+		}); */
 	</script>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		/* 	document.addEventListener("DOMContentLoaded", function() {
 			// Bar chart
 			new Chart(document.getElementById("chartjs-dashboard-bar"), {
 				type: "bar",
@@ -568,10 +583,10 @@ if(!isset($_SESSION))
 					}
 				}
 			});
-		});
+		}); */
 	</script>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		/* document.addEventListener("DOMContentLoaded", function() {
 			var markers = [{
 					coords: [31.230391, 121.473701],
 					name: "Shanghai"
@@ -635,10 +650,10 @@ if(!isset($_SESSION))
 			window.addEventListener("resize", () => {
 				map.updateSize();
 			});
-		});
+		}); */
 	</script>
 	<script>
-		document.addEventListener("DOMContentLoaded", function() {
+		/* 	document.addEventListener("DOMContentLoaded", function() {
 			var date = new Date(Date.now() - 5 * 24 * 60 * 60 * 1000);
 			var defaultDate = date.getUTCFullYear() + "-" + (date.getUTCMonth() + 1) + "-" + date.getUTCDate();
 			document.getElementById("datetimepicker-dashboard").flatpickr({
@@ -647,7 +662,7 @@ if(!isset($_SESSION))
 				nextArrow: "<span title=\"Next month\">&raquo;</span>",
 				defaultDate: defaultDate
 			});
-		});
+		}); */
 	</script>
 
     <script src="https://code.jquery.com/jquery-3.5.1.js"></script>

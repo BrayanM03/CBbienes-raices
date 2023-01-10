@@ -287,7 +287,7 @@
             if(response4.estatus == true){
               Swal.fire({
                 icon: "success",
-                html: "<b>"+response.mensaje+"</b>",
+                html: "<b>"+response4.mensaje+"</b>",
                 allowOutsideClick: false,
                 confirmButtonText: "Entendido"
             }).then((responses)=>{

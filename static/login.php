@@ -70,18 +70,18 @@
 										<div class="mb-3">
 											<label class="form-label">Contraseña</label>
 											<input class="form-control form-control-lg animate__animated" type="password" name="pass" id="pass" placeholder="Ingresa tu contraseña" />
-											<small>
+											<!-- <small>
 												<a href="index.html">¿Olvidaste tu contraseña?</a>
-											</small>
+											</small> -->
 										</div>
-										<div>
+										<!-- <div>
 											<label class="form-check">
 												<input class="form-check-input" type="checkbox" value="remember-me" name="remember-me" checked>
 												<span class="form-check-label">
 													Recuerdame la proxima vez
 												</span>
 											</label>
-										</div>
+										</div> -->
 										<div class="text-center mt-3">
 											<a id="btn-login" href="#validando" class="btn btn-lg btn-primary" style="width:130px; display:flex; justify-content:center" onclick="iniciarSesion()">Entrar</a>
 											<!-- <button type="submit" class="btn btn-lg btn-primary">Sign in</button> -->

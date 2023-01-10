@@ -149,6 +149,8 @@
     $rr->execute([$nombre, $telefono, $rfc, $contacto, $fecha_nacimiento, $lugar_nacimiento, $ocupacion, $estado_civil, $id_cliente]);
     $rr->closeCursor();
 
+   
+
 
     $post_total_direcciones = count($direcciones);
     $post_total_correos =  count($correos);
