@@ -6,7 +6,7 @@ function agregarProducto(){
     let manzana = document.getElementById("manzana").value
     let lote = document.getElementById("lote").value
     let precio = document.getElementById("precio-total").value
-
+    let area = $("#area").val();
 
      //Opcionales
      let norte = document.getElementById("norte").value
@@ -53,6 +53,7 @@ function agregarProducto(){
      datosForm.append("sur", sur);
      datosForm.append("este", este);
      datosForm.append("oeste", oeste);
+     datosForm.append("area", area);
      
   
      

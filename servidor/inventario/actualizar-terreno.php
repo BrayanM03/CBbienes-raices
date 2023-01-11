@@ -14,6 +14,7 @@ if ($_POST) {
     $sur = $_POST["sur"];
     $este = $_POST["este"];
     $oeste = $_POST["oeste"];
+    $area = $_POST["area"];
 
     $consultar = $con->prepare("SELECT COUNT(*) FROM terrenos WHERE proyecto = ? AND manzana =? AND lote = ? AND id != ?");
     $consultar->execute([$proyecto, $manzana, $lote, $id_terreno]);
@@ -29,7 +30,8 @@ if ($_POST) {
     sur=?,
     este=?,
     oeste=?,
-    proyecto = ?
+    proyecto = ?,
+    area = ?
     WHERE id =?";
 
         $resp = $con->prepare($query);
@@ -42,7 +44,8 @@ if ($_POST) {
         $resp->bindParam(7, $este);
         $resp->bindParam(8, $oeste);
         $resp->bindParam(9, $proyecto);
-        $resp->bindParam(10, $id_terreno);
+        $resp->bindParam(10, $area);
+        $resp->bindParam(11, $id_terreno);
         $resp->execute();
         $resp->closeCursor();
 

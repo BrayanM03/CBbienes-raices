@@ -165,6 +165,8 @@ if (empty($_SESSION["id"]) || $_SESSION['rol'] !== 'manager') {
      hijo.removeClass('fa-beat');
   }
   );
+
+  
     </script>
 </body>
 

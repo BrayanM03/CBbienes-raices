@@ -40,7 +40,8 @@ $columns = array(
 	array( 'db' => 'este',   'dt' => 7 ),
 	array( 'db' => 'oeste',   'dt' => 8 ),
 	array( 'db' => 'estatus',   'dt' => 9 ),
-	array( 'db' => 'proyecto',   'dt' => 10 )
+	array( 'db' => 'proyecto',   'dt' => 10 ),
+	array( 'db' => 'area',   'dt' => 11 )
 /* 	array(
 		'db'        => 'start_date',
 		'dt'        => 4,

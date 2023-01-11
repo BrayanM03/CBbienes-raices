@@ -13,6 +13,7 @@ if ($_POST) {
     $este = $_POST["este"];
     $oeste = $_POST["oeste"];
     $usuario_id = $_SESSION["id"];
+    $area = floatval($_POST["area"]);
     $proyecto = 1;
 
     $estatus = "Disponible";
@@ -34,10 +35,11 @@ if ($_POST) {
                 este,
                 oeste,
                 estatus,
-                proyecto) VALUES(null,?,?,?,?,?,?,?,?,?,?)";
+                proyecto,
+                area) VALUES(null,?,?,?,?,?,?,?,?,?,?,?)";
         $resp = $con->prepare($insercion);
 
-        $resp->execute([$codigo, $manzana, $lote, $precio, $norte, $sur, $este, $oeste, $estatus, $proyecto]);
+        $resp->execute([$codigo, $manzana, $lote, $precio, $norte, $sur, $este, $oeste, $estatus, $proyecto, $area]);
 
         $resp->closeCursor();
 

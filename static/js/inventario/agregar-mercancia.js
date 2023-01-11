@@ -252,12 +252,14 @@ function agregarManzana(){
     let numero_manzana = $("#numero_manzana").val();
     let cantidad_lotes = $("#cantidad_lotes").val();
     let proyecto = $("#proyecto").val();
+    
 
     let dato = {
         type: "insercion",
           numero_manzana,
           cantidad_lotes,
-          proyecto
+          proyecto,
+        
     };
 
     

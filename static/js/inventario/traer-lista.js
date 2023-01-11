@@ -28,6 +28,7 @@ $(document).ready(function () {
             },
             { data:3, title:'Lote' },
             { data:4, title:'Precio' },
+            { data:11, title: 'Area'},
             { data:null, title:'Estatus', render: (row, data)=>{
               /* console.log(row);
               console.log(data); */

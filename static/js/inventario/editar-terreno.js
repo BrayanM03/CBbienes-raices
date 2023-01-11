@@ -46,6 +46,13 @@
               </div>
           </div>
 
+          <div class="row justify-content-center mt-3">
+            <div class="col-4">
+                  <label>Area</label>
+                  <input type="number" class="form-field" id="area" placeholder="0">
+            </div>
+          </div>
+
           <div class="row mt-3">
             <div class="col-12">
                 <label>Colindancias</label>
@@ -97,6 +104,7 @@
                 $("#sur").val(response.terrenos.sur);
                 $("#este").val(response.terrenos.este);
                 $("#oeste").val(response.terrenos.oeste);
+                $("#area").val(response.terrenos.area);
 
                 //setetando manzanas
                 $.ajax({
@@ -211,6 +219,7 @@
         let sur = $("#sur").val()
         let este = $("#este").val()
         let oeste = $("#oeste").val()
+        let area = $("#area").val()
         
         if(valid == "false"){
           Swal.showValidationMessage(
@@ -233,6 +242,7 @@
           datosForm.append("sur", sur);
           datosForm.append("este", este);
           datosForm.append("oeste", oeste);
+          datosForm.append("area", area);
 
           $.ajax({
             type: "POST",

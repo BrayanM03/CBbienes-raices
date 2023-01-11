@@ -139,9 +139,13 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="col-4 col-md-4">
+                            <div class="col-4 col-md-6">
                                 <label for="precio-total">Precio total</label>
                                 <input class="form-field" placeholder="0.00" name="precio-total" id="precio-total" type="number">
+                            </div>
+                            <div class="col-4 col-md-6">
+                                <label for="area">Area(<em>m<sup>2</sup></em>)</label>
+                                <input class="form-field" placeholder="0" name="area" id="area" type="number">
                             </div>
                         </div>
 
