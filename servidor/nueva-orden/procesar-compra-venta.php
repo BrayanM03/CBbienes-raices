@@ -11,7 +11,7 @@ session_start();
     //Seteando nueva fecha vencimiento
     $date = new DateTime($fecha);
     $date->modify("+1 month");
-    $date->setDate($date->format("Y"), $date->format("m"), 5);
+    $date->setDate($date->format("Y"), $date->format("m"), 10);
     $fecha_vecimiento = $date->format("Y-m-d");
 
     //Nuevo estatus
@@ -96,6 +96,7 @@ if ($total > 0) {
         $este = $row["este"];
         $oeste = $row["oeste"];
         $usuario_id = $row['usuario_id'];
+        $area = $row["area"];
         $abonos = 0;
 
         $no_abono = 0;
@@ -122,12 +123,13 @@ if ($total > 0) {
                                                             restante,
                                                             contrato,
                                                             fecha_vencimiento,
-                                                            estatus)
-                                VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                                                            estatus,
+                                                            area)
+                                VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         $respu = $con->prepare($insertar_detalle);
         $respu->execute([$codigo, $id_proyecto, $proyecto, $manzana, $lote, $precio,
                          $abonos, $plazo, $mensualidad, $norte, $sur, $este, $oeste, $usuario_id, $last_id,
-                        $total_abonado, $restante, $contrato, $fecha_vecimiento, $estatus_detalle]);
+                        $total_abonado, $restante, $contrato, $fecha_vecimiento, $estatus_detalle, $area]);
         $respu->closeCursor();
         $last_id_detalle_orden = $con->lastInsertId();
         $suma_importe += floatval($row["precio"]);
@@ -240,7 +242,17 @@ function obtenerDatosCliente($con, $cliente_id, $direccion_id, $correo_id){
                    
 
                     while( $fil = $rv->fetch()){
-                        $direccion = $fil['calle'] ." ". $fil['colonia'] ." ". $fil['numero_int']." ". $fil['cp'] . " ". $fil['municipio'] ." ". $fil['estado'] . " ". $fil['pais'];
+                        $calle = ($fil['calle'] == 'null') ? '' : $fil['calle'];
+                        $colonia = ($fil['colonia'] == 'null') ? '' : $fil['colonia'];
+                        $numero_int = ($fil['numero_int'] == 'null') ? '' : 'interior '.$fil['numero_int'];
+                        $numero_ext = ($fil['numero_ext'] == 'null') ? '' :  'numero '.$fil['numero_ext'];
+                        $cp = ($fil['cp'] == 'null') ? '' : $fil['cp'];
+                        $ciudad = ($fil['ciudad'] == 'null') ? '' : $fil['ciudad'];
+                        $municipio = ($fil['municipio'] == 'null') ? '' : $fil['municipio'];
+                        $estado = ($fil['estado'] == 'null') ? '' : $fil['estado'];
+                        $pais = ($fil['pais'] == 'null') ? '' : $fil['pais'];
+                        $direccion = "$calle $colonia $numero_ext $numero_int  $cp $municipio $estado $pais";
+
                     }
                     $rv->closeCursor();
                     $row["direccion"] = $direccion;

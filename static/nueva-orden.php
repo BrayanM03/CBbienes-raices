@@ -118,13 +118,13 @@ if (empty($_SESSION["id"])) {
     <script src="https://cdn.datatables.net/responsive/2.3.0/js/dataTables.responsive.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 
-     
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/1.3.4/jspdf.min.js"></script>
+    <script type="text/javascript" src="js/reportes/jspdf.umd.js"></script>
     <script src="https://unpkg.com/jspdf-autotable@3.5.22/dist/jspdf.plugin.autotable.js"></script>
     <script src="//cdnjs.cloudflare.com/ajax/libs/numeral.js/2.0.6/numeral.min.js"></script>
 
     <!-- Mis scripts -->
     <script src="js/reportes/numero_letras.js"></script>
+    <script src="js/reportes/numero_letras_sin_moneda.js"></script>
     <script src="./js/nueva-orden/seleccionar-cliente.js"></script>
     <script src="./js/nueva-orden/formulario.js"></script>
     <script src="./js/nueva-orden/tabla-preorden.js"></script>
@@ -138,7 +138,8 @@ if (empty($_SESSION["id"])) {
     <script src="js/reportes/guardar-contrato.js"></script>
   
     <script>
-        
+         window.jsPDF = window.jspdf.jsPDF;
+         
 $( "#card-aire" ).hover(
   function() {
     $("#imagen-aire").addClass( "animate__pulse animate__infinite infinite")

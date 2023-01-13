@@ -20,6 +20,7 @@ if ($_POST) {
     $plazo = intval($_POST["plazo"]);
     $mensualidad = floatval($_POST["mensualidad"]);
     $usuario_id = intval($_SESSION["id"]);
+    $area = floatval($_POST["area"]);
 
    
         $fecha_ingreso = date("Y-m-d");
@@ -75,11 +76,12 @@ if ($_POST) {
                                                      enganche_3,
                                                      mensualidad,
                                                      norte, sur, este, oeste,
-                                                     usuario_id) VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+                                                     usuario_id,
+                                                     area) VALUES(null, ?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
             $resps = $con->prepare($sel);
             $resps->execute([$codigo_terreno, $proyecto, $nombre_proyecto, $manzana, $lote, $precio, $contrato, $plazo, $enganche_1, $enganche_2, $enganche_3,
-             $mensualidad, $norte, $sur, $este, $oeste, $usuario_id]);
+             $mensualidad, $norte, $sur, $este, $oeste, $usuario_id, $area]);
             $resps->closeCursor();
     
             $response = array("status"=>true, "post"=>$_POST, "message"=> "Terreno agregado correctamente");

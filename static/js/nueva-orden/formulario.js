@@ -149,6 +149,7 @@ function agregarATabla(){
   let sur = $("#sur").val()
   let este = $("#este").val()
   let oeste = $("#oeste").val()
+  let area = $("#area").val()
 
   let contrato = $("#contrato").val()
   let enganche_1 = $("#enganche_1").val()
@@ -197,7 +198,8 @@ function agregarATabla(){
         contrato,
         enganche_1,
         enganche_2,
-        enganche_3
+        enganche_3,
+        area
       },
       dataType: "JSON",
       success: function (response) {

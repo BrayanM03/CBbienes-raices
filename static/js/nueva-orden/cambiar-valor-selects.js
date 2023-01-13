@@ -5,6 +5,7 @@ const proyecto_select = document.getElementById('proyecto');
 const manzana_select = document.getElementById('manzana');
 const lote_select = document.getElementById('lote');
 const precio_input = document.getElementById('precio');
+const area_input = document.getElementById('area');
 const norte_input = document.getElementById('norte');
 const sur_input = document.getElementById('sur');
 const este_input = document.getElementById('este');
@@ -131,6 +132,8 @@ function updatePrice() {
         sur_input.value = element.sur
         este_input.value = element.este
         oeste_input.value = element.oeste
+        area_input.value = element.area
+
       });
 
     area_colindancias.classList.remove('d-none')

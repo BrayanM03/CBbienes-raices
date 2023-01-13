@@ -85,7 +85,18 @@ function formatSelection (repo) {
           $("#direccion_cliente").empty()
           repo.direccion.forEach(element => {
             let direccion_id = element[0]
-            let direccion_tag = `${element.calle} ${element.numero_int} ${element.numero_ext} ${element.colonia} ${element.cp} ${element.municipio} ${element.estado} ${element.pais}`
+            
+            let calle = element.calle == null || element.calle == "null" ? "" : element.calle
+            let colonia = element.colonia == null || element.colonia == "null" ? "" : element.colonia
+            let numero_int = element.numero_int == null || element.numero_int == "null" ? "" : 'interior ' + element.numero_int
+            let numero_ext = element.numero_ext == null || element.numero_ext == "null" ? "" :  'numero ' + element.numero_ext
+            let cp = element.cp == null || element.cp == "null" ? "" : element.cp
+            let ciudad = element.ciudad == null || element.ciudad == "null" ? "" : element.ciudad
+            let municipio = element.municipio == null || element.municipio == "null" ? "" : element.municipio
+            let estado = element.estado == null || element.estado == "null" ? "" : element.estado
+            let pais = element.pais == null || element.pais == "null" ? "" : element.pais
+           
+            let direccion_tag = `${calle} ${numero_ext} ${numero_int} ${colonia} ${cp} ${municipio} ${estado} ${pais}`
             $("#direccion_cliente").append(`
                 <option value="${direccion_id}">${direccion_tag}</option>
             `)

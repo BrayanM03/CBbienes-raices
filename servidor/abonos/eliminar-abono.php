@@ -100,7 +100,7 @@ if(is_numeric($abono_id) && $abono_id !== 0){
                 $fecha_ultima = $fil["fecha"];
                 $date = new DateTime($fecha_ultima);
                 $date->modify("+1 month");
-                $date->setDate($date->format("Y"), $date->format("m"), 5);
+                $date->setDate($date->format("Y"), $date->format("m"), 10);
                 $fecha_vencimiento = $date->format("Y-m-d");
 
                 if(strtotime($fecha_vencimiento_actual) >= $fecha_vencimiento){
@@ -120,7 +120,7 @@ if(is_numeric($abono_id) && $abono_id !== 0){
                 $fecha_orden_actual = date($fil["fecha"]);
                 $date = new DateTime($fecha_orden_actual);
                 $date->modify("+1 month");
-                $date->setDate($date->format("Y"), $date->format("m"), 5);
+                $date->setDate($date->format("Y"), $date->format("m"), 10);
                 $fecha_vencimiento = $date->format("Y-m-d");
 
                 if(strtotime(date("Y-m-d")) >= strtotime($fecha_vencimiento)){

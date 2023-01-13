@@ -23,9 +23,6 @@ if(is_numeric($orden_id) && is_numeric($detalle_id) && $orden_id !== 0 && $detal
 
     
 
-    
-   
-
     //Traemos el registro del terrno en la orden coincidente al id
     $select = "SELECT * FROM detalle_orden WHERE id = ?";
     $re = $con->prepare($select);
@@ -38,13 +35,14 @@ if(is_numeric($orden_id) && is_numeric($detalle_id) && $orden_id !== 0 && $detal
         $pagado = $row["pagado"];
         $precio = $row["precio"];
         $mensualidad = $row["mensualidad"];
-      
+        $total_abonos_actuales = $row["abonos"];
        
         
     }
     $re->closeCursor();
     
-    $no_abono = intval($total_abonos) + 1;
+    $no_abono = intval($total_abonos_actuales) + 1;
+   
     $nuevo_restante = floatval($restante) - floatval($monto_abono);
     $nuevo_pagado = floatval($pagado) + floatval($monto_abono);
     $saldo_adelantado = floatval($monto_abono) - floatval($mensualidad);
@@ -61,9 +59,9 @@ if(is_numeric($orden_id) && is_numeric($detalle_id) && $orden_id !== 0 && $detal
         $nuevo_restante, $nuevo_pagado, $etiqueta_abono, $orden_id, $detalle_id, $usuario_id, $tipo, $hora, $saldo_adelantado]);
         $insert->closeCursor();
    
-        $updt = "UPDATE detalle_orden SET pagado = ?, restante = ? WHERE id = ?";
+        $updt = "UPDATE detalle_orden SET abonos =?, pagado = ?, restante = ? WHERE id = ?";
                $ree = $con->prepare($updt);
-               $ree->execute([$nuevo_pagado, $nuevo_restante, $detalle_id]);
+               $ree->execute([$no_abono, $nuevo_pagado, $nuevo_restante, $detalle_id]);
                $ree->closeCursor();
 
 
@@ -94,7 +92,7 @@ if(is_numeric($orden_id) && is_numeric($detalle_id) && $orden_id !== 0 && $detal
                 $fecha_ultima = $fil["fecha"];
                 $date = new DateTime($fecha_ultima);
                 $date->modify("+1 month");
-                $date->setDate($date->format("Y"), $date->format("m"), 5);
+                $date->setDate($date->format("Y"), $date->format("m"), 10);
                 $fecha_vencimiento = $date->format("Y-m-d");
  
             $updte = "UPDATE detalle_orden SET fecha_vencimiento =? , estatus = ? WHERE id = ?";

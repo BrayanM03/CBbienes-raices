@@ -120,7 +120,7 @@ function verDetalleOrden(id){
                 $("#body-estatus").append(`
                 <a class="list-group-item list-group-item-action ${clase_lista}" id="list-profile-list">
                 <div class="row">
-                        <div class="col-2">
+                        <div class="col-1">
                            ${element.codigo}
                         </div>
                         <div class="col-2">
@@ -131,6 +131,9 @@ function verDetalleOrden(id){
                         </div>
                         <div class="col-1">
                           ${element.lote}
+                        </div>
+                        <div class="col-1">
+                          ${element.area}
                         </div>
                         <div class="col-2"> 
                           ${total_f}
@@ -412,7 +415,7 @@ function verDetalleOrden(id){
                                     <a class="list-group-item list-group-item-action" id="list-header-t">
                                         <div class="row">
 
-                                            <div class="col-2">
+                                            <div class="col-1">
                                                 <b>Codigo: </b>
                                             </div>
                                             <div class="col-2">
@@ -423,6 +426,9 @@ function verDetalleOrden(id){
                                             </div>
                                             <div class="col-1">
                                                 <b>Lote: </b>
+                                            </div>
+                                            <div class="col-1">
+                                                <b>Area: </b>
                                             </div>
                                             <div class="col-2">
                                                 <b>Precio </b>

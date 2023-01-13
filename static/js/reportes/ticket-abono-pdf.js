@@ -20,19 +20,18 @@ function verTicketAbono(abono_id){
      logo_cb = data_logo_cb.replace(/[\s"\\]/gm, "");
 
 doc.addImage(logo_cb, "JPEG", 75, 10, 50, 17);
-doc.setFontType("normal");
+doc.setFont("helvetica", "normal"); // set font
+
 doc.setFontSize(10);
 doc.text( `C. España 71, Buena Vista, 87497  
 Heroica Matamoros, Tamps.`,106,29, 'center');
 
 
-  doc.setFont("helvetica"); // set font
-  doc.setFontType("bold");
+  doc.setFont("helvetica", "bold"); // set font
   doc.setFontSize(11);
   doc.text( "TICKET DE ABONO",82, 43);
   doc.setFontSize(9);
   doc.text("Folio " +  data.datos.datos_abono.id,89, 47);
-  doc.setFontType("bold")
 
 
   cliente_mayus = data.datos.cliente.toUpperCase();
@@ -60,6 +59,7 @@ Heroica Matamoros, Tamps.`,106,29, 'center');
       { header: 'Fecha', dataKey: 'fecha' },
       { header: 'Abono', dataKey: 'total'},
       { header: 'Tipo', dataKey: 'tipo'},
+      { header: 'No. abono', dataKey: 'tipo'},
     ],
   }))
 

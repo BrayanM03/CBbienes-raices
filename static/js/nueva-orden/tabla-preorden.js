@@ -22,6 +22,7 @@ $(document).ready(function () {
             { data:2, title:'Proyecto'},
             { data:3, title:'Manzana'},
             { data:4, title:'Lote'},
+            { data:9, title:'Area'},
             { data:null, title:'Precio', render:(row)=>{
               let precio_unit_sf = row[5]
               let precio_unit = Intl.NumberFormat('es-MX',{style:'currency',currency:'MXN'}).format(precio_unit_sf)

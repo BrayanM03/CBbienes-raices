@@ -120,15 +120,19 @@
         </div>
 
         <div class="row mt-2"> 
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
+                <label for="area"><b>Area</b></label>
+                <input class="form-field" id="area" placeholder="0" type="number">
+            </div>
+            <div class="col-12 col-md-3">
                 <label for="contrato"><b>Contrato not.</b></label>
                 <input class="form-field" id="contrato" placeholder="0.00" type="number">
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <label for="plazo"><b>Plazo</b></label>
                 <input class="form-field" id="plazo" placeholder="0" type="number">
             </div>
-            <div class="col-12 col-md-4">
+            <div class="col-12 col-md-3">
                 <label for="mensualidad"><b>Mensualidad</b></label>
                 <input class="form-field" id="mensualidad" placeholder="0.00" type="number">
             </div>

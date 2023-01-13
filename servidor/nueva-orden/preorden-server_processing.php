@@ -42,7 +42,8 @@ $columns = array(
 	array( 'db' => 'precio', 'dt' => 5 ),
 	array( 'db' => 'contrato', 'dt' => 6 ),
 	array( 'db' => 'plazo', 'dt' => 7 ),
-	array( 'db' => 'usuario_id',  'dt' => 8 )
+	array( 'db' => 'usuario_id',  'dt' => 8 ),
+	array( 'db' => 'area',  'dt' => 9 )
 /* 	array(
 		'db'        => 'start_date',
 		'dt'        => 4,
